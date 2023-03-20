@@ -1,0 +1,48 @@
+/* eslint-disable react/no-unknown-property */
+import React, { useState, useEffect } from 'react'
+import iconCoffe from "../../assets/icon-coffee.svg"
+import humberger from "../../assets/menu-icon.svg"
+import { Link } from 'react-router-dom'
+
+
+
+function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  useEffect(() => {
+    // Disable scrolling when the menu is open
+    document.body.style.overflow = isMenuOpen ? "hidden" : "auto";
+  }, [isMenuOpen]);
+  function toggleMenu() {
+    setIsMenuOpen(!isMenuOpen);
+  }
+  return (
+    <header className="w-full border-b border-solid px-5 py-5 md:px-20 lg:px-36 lg:py-10 bg-bgprimary">
+      <nav className="flex justify-between items-center h-20">
+        <div className="flex items-center gap-3 select-none">
+          <img src={iconCoffe} alt="icon-coffee" className="w-6 h-6" />
+          <h1 className="text-lg font-bold tracking-wide">Coffee Shop</h1>
+        </div>
+        <div className={`fixed py-4 top-16 left-0 z-10 w-full h-1/2 bg-secondary ${isMenuOpen ? "block" : "hidden"} lg:bg-opacity-0 lg:relative lg:w-auto lg:h-auto lg:flex lg:top-0 lg:items-center lg:justify-end lg:gap-40`}>
+          <div className="pb-4 lg:flex lg:items-center lg:gap-18">
+            <ul className="flex flex-col items-center gap-6 lg:flex-row lg:gap-8" id="menu-list">
+              <li><Link to="/home" className="font-medium tracking-wide hover:text-secondary transition-colors">Home</Link></li>
+              <li><Link to="/product" className="font-medium tracking-wide hover:text-secondary transition-colors">Product</Link></li>
+              <li><a href="#" className="font-medium tracking-wide hover:text-secondary transition-colors">Your Cart</a></li>
+              <li><Link to="/history" className="font-medium tracking-wide hover:text-secondary transition-colors">History</Link></li>
+            </ul>
+          </div>
+          <div className="flex justify-center border-t border-solid py-4 lg:relative lg:bg-opacity-0">
+            <ul className="flex items-center gap-5" id="menu-profile">
+              <li><Link to="/login" className="font-medium tracking-wide hover:text-primary transition-colors">Login</Link></li>
+              <li><button className="bg-primary py-2 px-6 rounded-full text-white font-medium tracking-wide hover:bg-primary-dark transition-colors"><Link to="/signup">Sign Up</Link></button></li>
+            </ul>
+          </div>
+        </div>
+        <img fetchpriority="low" src={humberger} alt="menu-icon" className="w-7 h-7 cursor-pointer select-none lg:hidden" id="hamburger" onClick={toggleMenu} />
+      </nav>
+    </header>
+
+  )
+}
+
+export default Header
