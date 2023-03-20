@@ -21,3 +21,20 @@ input[type="radio"]:checked + span {
   display: block;
   border: 4px solid #6a4029;
 }
+
+@layer components {
+  .input-data-radio span {
+    @apply h-6 w-6 rounded-full border-4 border-solid border-secondary relative;
+  }
+  .input-data-radio span::after {
+    @apply h-4 w-4 rounded-full bg-primary block relative left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-0;
+    content: "";
+  }
+  .input-data-radio input[type=radio]:checked ~ span::after {
+    @apply scale-100;
+  }
+  .input-data-radio input[type=radio]:checked ~ label {
+    @apply font-bold text-secondary;
+  }
+  
+}

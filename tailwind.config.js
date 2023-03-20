@@ -13,6 +13,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         'payment': "url('/src/assets/bg-payment.webp')",
+        'home': "url('/src/assets/home.webp')",
       },
       colors: {
         primary: '#FFBA33',
