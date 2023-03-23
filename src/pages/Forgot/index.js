@@ -21,12 +21,12 @@ class Forgot extends Component {
                   <input type="text" placeholder="Enter your email address" id="emailInput" className='text-black px-4 py-2 rounded-xl' />
                   <span id="emailError" className='text-red-600'>test</span>
                   <div className="circle-check" id="circleCheck"></div>
-                  <button className="bg-primary cursor-pointer">Send</button>
+                  <button className="bg-primary cursor-pointer rounded-lg py-2">Send</button>
                   <span id="submitError" className="submitError text-red-600">text</span>
                 </div>
                 <div className="resend flex flex-col">
                   <p className="resend-txt text-center lg:text-3xl lg:font-semibold mb-4">Click here if you didn`t receive any link <br /> in 2 minutes</p>
-                  <button className="btn-resend cursor-pointer bg-secondary">Resend Link</button>
+                  <button className="cursor-pointer bg-secondary rounded-lg py-2">Resend Link</button>
                   <p className="resend-time text-center">01:54</p>
                 </div>
               </form>

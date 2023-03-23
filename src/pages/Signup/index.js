@@ -46,8 +46,8 @@ class Signup extends Component {
                     <div className="circle-check" id="circleCheck2"></div>
                   </div>
                   <span id="submitError"></span>
-                  <button className="btn btn-signup pointer bg-primary text-secondary font-bold" type="submit" >Sign Up</button>
-                  <button className="btn btn-google pointer flex justify-center gap-4 bg-bgsecondary lg:shadow-md">
+                  <button className="pointer py-2 bg-primary text-secondary font-bold rounded-lg cursor-pointer" type="submit" >Sign Up</button>
+                  <button className="cursor-pointer py-2 flex justify-center bg-bgsecondary lg:shadow-md rounded-lg">
                     <img src={Icongoogle} alt="icon-google" />
                     <p className="btn-txt text-black">Sign up with Google</p>
                   </button>

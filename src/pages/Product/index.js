@@ -35,7 +35,7 @@ function Product() {
                 </div>
               </div>
               <div className='flex justify-center'>
-                <button className="text-white cursor-pointer bg-secondary w-70 mt-4 mb-10">Apply Coupon</button>
+                <button className="text-white cursor-pointer bg-secondary w-70 mt-4 mb-10 rounded-lg">Apply Coupon</button>
               </div>
               <div className="list text-xs">
                 <ul>
