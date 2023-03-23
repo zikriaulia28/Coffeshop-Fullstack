@@ -10,8 +10,8 @@ function Product() {
     <>
       <Header />
       <main>
-        <section className="container-product flex flex-col-reverse  gap-6 md:px-20 lg:px-36 lg:flex-row">
-          <div className='lg:border-r lg:border-solid lg:px-10'>
+        <section className="container-product flex flex-col-reverse  gap-6 md:px-20 lg:px-28 lg:flex-row">
+          <div className='lg:border-r lg:border-solid lg:pr-10'>
             <div className="product-txt px-5 py-5 lg:pr-5 lg:pl-0">
               <div className="title-product text-xl text-secondary font-semibold text-center mb-4">Promo for you</div>
               <div className="desc-product text-center mb-5 ">Coupons will be updated every weeks. <br />
@@ -68,17 +68,6 @@ function Product() {
                 <li>Foods</li>
                 <li>Add-on</li>
               </ul>
-              {/* <div className="card-wrapper grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:mt-20 place-items-center mt-10 gap-x-4 gap-y-14 text-center">
-              <div className="card w-[156px] h-[212.41px] shadow-md rounded-3xl flex flex-col items-center">
-                <div className="card-img w-[128.98px] h-[128.98px] rounded-full shadow-xl relative -top-10">
-                  <img src={P1} className='w-full h-full rounded-full object-cover' />
-                </div>
-                <div className="relative -top-5">
-                  <div className="card-title text-2xl font-bold"><Link to="/productdetails">Veggie tomato mix</Link></div>
-                  <div className="font-semibold text-sm text-secondary"><Link to="/productdetails">IDR 34.000</Link></div>
-                </div>
-              </div>
-            </div> */}
               <ProductList />
             </div>
           </div>

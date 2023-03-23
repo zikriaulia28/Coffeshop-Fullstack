@@ -28,7 +28,7 @@ function Header() {
         <div className={`fixed py-4 top-20 left-0 z-10 w-full h-3/5 bg-secondary lg:bg-opacity-0 lg:relative lg:w-auto lg:h-auto lg:flex lg:top-0 lg:items-center lg:justify-end lg:gap-40 ${isMenuOpen ? "block" : "hidden"}`}>
           <div className="pb-4 lg:flex lg:items-center lg:gap-18 lg:pb-0">
             <ul className="flex flex-col items-center gap-8 lg:flex-row lg:gap-8" id="menu-list">
-              <li><Link to="/home" className="font-medium tracking-wide hover:text-secondary transition-colors">Home</Link></li>
+              <li><Link to="/" className="font-medium tracking-wide hover:text-secondary transition-colors">Home</Link></li>
               <li><Link to="/product" className="font-medium tracking-wide hover:text-secondary transition-colors">Product</Link></li>
               <li><Link to="/payment" className="font-medium tracking-wide hover:text-secondary transition-colors">Your Cart</Link></li>
               <li><Link to="/history" className="font-medium tracking-wide hover:text-secondary transition-colors">History</Link></li>

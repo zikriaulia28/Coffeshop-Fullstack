@@ -22,7 +22,7 @@ class Footer extends Component {
             <div className="product">
               <h2 className="mb-5 font-bold text-xl">Product</h2>
               <ul className="flex flex-col gap-[10px] product-list">
-                <li>Download</li>
+                <li><a href='#'>Download</a></li>
                 <li>Pricing</li>
                 <li>Locations</li>
                 <li>Countries</li>
