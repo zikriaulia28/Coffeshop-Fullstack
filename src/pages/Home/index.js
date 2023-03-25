@@ -66,7 +66,7 @@ function Home() {
       </section>
 
       {/* <!-- TEAMWORK --> */}
-      <section className="flex h-screen flex-col items-center px-4 lg:px-36">
+      <section className="flex h-full flex-col items-center px-4 lg:px-36">
         <div className="flex flex-col md:flex-row w-full md:gap-[10%]">
           <img src={Benefit} alt="" className="md:w-1/2 h-fit w-screen" />
           <div className="flex flex-col md:w-1/2 justify-center">
@@ -82,7 +82,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="bg-[#f8f8f885]  flex justify-center mt-10 py-4 px-4 lg:px-36">
+      <section className="bg-[#f8f8f885]  flex justify-center mt-10 py-4 px-4 lg:px-36 lg:py-8">
         <main className="flex flex-col items-center">
           {/* <!-- FAVORITE PEOPLE --> */}
           <h3 className="font-medium text-2xl md:text-3xl ">Here is People’s Favorite</h3>
@@ -162,7 +162,7 @@ function Home() {
           <div className='px-4 lg:px-36'>
             <h3 className="text-center font-medium text-2xl md:text-3xl  md:leading-[50px]">Visit Our Store in the Spot on the Map Below</h3>
             <p className="text-center text-greydark text-sm md:text-base mt-4">See our store in every city on the spot and spen your good day there. See you soon!</p>
-            <div className='w-screen mt-4 lg:mt-8 px-4'>
+            <div className='w-full mt-4 lg:mt-8 px-4'>
               <img src={Maps} alt="" className='w-full h- h-full object-cover' />
             </div>
           </div>
@@ -171,7 +171,7 @@ function Home() {
           {/* <!-- PARTNER CONTENT --> */}
           <div className='px-4 mt-20'>
             <h3 className="text-center font-medium text-2xl md:text-3xl mb-8 lg:text-4xl">Our Partner</h3>
-            <div className="flex gap-4 mb-20 md:w-screen md:px-4 lg:justify-center">
+            <div className="flex gap-4 mb-20 md:w-full md:px-4 lg:justify-center">
               <div className="w-16 h-16  md:w-44 md:h-14 ">
                 <img src={Netflix} alt="" className="w-full md:h-full grayscale" />
               </div>
@@ -196,9 +196,9 @@ function Home() {
             <h3 className="text-center font-medium text-2xl md:text-3xl ">Loved by Thousands of Happy Customer</h3>
             <p className="text-center text-greydark text-sm md:text-base leading-6 md:leading-7 my-4 md:my-6">These are the stories of our customers who have visited us with great pleasure.</p>
             {/* <!-- COMMENTARY CONTAINER --> */}
-            <div className="w-full flex items-center flex-col lg:flex-row gap-3 pb-4 lg:w-4/5 lg:justify-center ">
+            <div className="flex flex-col items-center gap-2 lg:flex-row lg:snap-proximity lg:snap-x overflow-x-auto">
               {/* <!-- CARD COMMENT-1 --> */}
-              <div className="card-comment flex flex-col p-4 sm:p-7 w-5/6 lg:min-w-105  min-h-[230px] border-2 rounded-xl border-grey">
+              <div className=" flex flex-col p-4 sm:p-7 w-5/6 lg:w-82  h-[230px] border-2 rounded-xl border-grey lg:snap-center">
                 <div className="flex w-full gap-3 mb-6">
                   <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full overflow-hidden">
                     <img src={Testi1} alt="" />
@@ -215,7 +215,7 @@ function Home() {
                 <p className="text-xs md:text-base">“Wow... I am very happy to spend my whole day here. the Wi-fi is good, and the coffee and meals tho. I like it here!! Very recommended!</p>
               </div>
               {/* <!-- CARD COMMENT-2 --> */}
-              <div className="card-comment flex flex-col p-4 sm:p-7 w-5/6 lg:min-w-105 min-h-[230px] border-2 rounded-xl border-grey">
+              <div className="flex flex-col p-4 sm:p-7 w-5/6 lg:w-82 h-[230px] border-2 rounded-xl border-grey lg:snap-center">
                 <div className="flex w-full gap-3 mb-6">
                   <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full overflow-hidden">
                     <img src={Testi2} alt="" />
@@ -232,7 +232,7 @@ function Home() {
                 <p className="text-xs md:text-base">“I like it because I like to travel far and still can make my day better just by drinking their Hazelnut Latte</p>
               </div>
               {/* <!-- CARD COMMENT-3 --> */}
-              <div className="card-comment flex flex-col p-4 sm:p-7 w-5/6 lg:min-w-105 min-h-[230px] border-2 rounded-xl border-grey">
+              <div className="flex flex-col p-4 sm:p-7 w-5/6 lg:w-82 h-[230px] border-2 rounded-xl border-grey lg:snap-center">
                 <div className="flex w-full gap-3 mb-6">
                   <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full overflow-hidden">
                     <img src={Testi3} alt="" />
@@ -267,7 +267,7 @@ function Home() {
           </div>
 
           {/* <!-- RECLAME CHECK PROMO --> */}
-          <section className="relative -translate-y-14 w-10/12 lg:w-4/6 flex justify-center">
+          <section className="relative -translate-y-14 w-10/12 lg:w-full flex justify-center">
             <div className="absolute w-full h-32 md:p-10 p-4 flex flex-col md:flex-row justify-between items-center rounded-xl bg-white shadow-xl">
               <div className="">
                 <h1 className="text-lg md:text-4xl font-medium max-w-sm">Check our promo today!</h1>
