@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import withSearchParams from "../../utils/wrapper/withSearchParams"
@@ -22,6 +22,9 @@ import Testi3 from "../../assets/testi3.webp"
 
 
 function Home() {
+  useEffect(() => {
+    document.title = "Coffe Shop - Home";
+  }, [])
   return (
     <>
       <Header />

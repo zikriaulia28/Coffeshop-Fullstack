@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import Promo from '../../assets/p1.webp'
@@ -6,6 +6,9 @@ import ProductList from './getProducts'
 
 
 function Product() {
+  useEffect(() => {
+    document.title = "Coffe Shop - Product";
+  }, [])
   return (
     <>
       <Header />

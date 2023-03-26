@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import ImgProfile from '../../assets/profile.webp'
 
 function Profile() {
+  useEffect(() => {
+    document.title = "Coffe Shop - Profile";
+  }, [])
   return (
     <>
       <Header />
