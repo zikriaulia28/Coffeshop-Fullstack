@@ -5,11 +5,12 @@ import humberger from "../../assets/menu-icon.svg"
 import { Link } from 'react-router-dom'
 import HeaderAuth from './headerAuth'
 import HeaderLogin from './headerLogin'
+import { get } from "../../utils/localStorage"
 
 
 
 function Header() {
-  const login = false;
+  const token = get("tokokopi-token")
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   useEffect(() => {
     // Disable scrolling when the menu is open
@@ -19,6 +20,7 @@ function Header() {
     setIsMenuOpen(!isMenuOpen);
   }
   return (
+
     <header className="w-full border-b border-solid px-4 md:px-20 lg:px-36 bg-bgprimary">
       <nav className="flex justify-between items-center h-20">
         <div className="flex items-center gap-3 select-none">
@@ -35,7 +37,7 @@ function Header() {
             </ul>
           </div>
           <div className="flex justify-center border-t border-solid py-4 lg:relative lg:bg-opacity-0 lg:border-none">
-            {login ? <HeaderLogin /> : <HeaderAuth />}
+            {token ? <HeaderLogin /> : <HeaderAuth />}
           </div>
         </div>
         <img fetchpriority="low" src={humberger} alt="menu-icon" className="w-7 h-7 cursor-pointer select-none lg:hidden" id="hamburger" onClick={toggleMenu} />

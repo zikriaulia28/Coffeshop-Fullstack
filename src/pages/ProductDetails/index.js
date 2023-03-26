@@ -41,8 +41,8 @@ function ProductDetails() {
   return (
     <>
       <Header />
-      {product.map((data, idx) => (
-        <main key={idx} className="bg-abu inset-0 pb-[270px]">
+      {product.map((data) => (
+        <main key={data.id} className="bg-abu inset-0 pb-[270px]">
           <section className="title pl-[10%] pt-12 text-xl">
             <p>
               Favorite & Promo

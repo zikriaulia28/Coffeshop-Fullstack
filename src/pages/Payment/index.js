@@ -87,21 +87,21 @@ function Payment() {
                   <p className='text-bgsecondary'>Payment method</p>
                   <div className='px-8 py-8 bg-bgsecondary rounded-2xl'>
                     <div className='flex items-center gap-2 pb-2'>
-                      <input type='radio' />
+                      <input type='radio' name="payment" />
                       <div className='w-10 h-10 bg-primary rounded-lg flex items-center justify-center'>
                         <img src={img3} />
                       </div>
                       <p>Card</p>
                     </div>
                     <div className='flex items-center gap-2 border-t border-b py-2'>
-                      <input type='radio' />
+                      <input type='radio' name="payment" />
                       <div className='w-10 h-10 bg-secondary rounded-lg flex items-center justify-center'>
                         <img src={img4} />
                       </div>
                       <p>Bank account</p>
                     </div>
                     <div className='flex items-center gap-2 pt-2'>
-                      <input type='radio' />
+                      <input type='radio' name="payment" />
                       <div className='w-10 h-10 bg-primary rounded-lg flex items-center justify-center'>
                         <img src={img5} />
                       </div>

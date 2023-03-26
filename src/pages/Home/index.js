@@ -21,7 +21,10 @@ import Testi3 from "../../assets/testi3.webp"
 
 
 
+
+
 function Home() {
+
   useEffect(() => {
     document.title = "Coffe Shop - Home";
   }, [])

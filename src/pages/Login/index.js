@@ -3,12 +3,45 @@ import Footer from '../../components/Footer'
 import Bgsignup from '../../assets/bg-signIn.webp'
 import Iconcoffer from '../../assets/icon-coffee.svg'
 import Icongoogle from '../../assets/google-logo.svg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom";
+import { save } from "../../utils/localStorage";
+import { login } from "../../utils/https/auth";
 
 function Login() {
+  const navigate = useNavigate();
+
   useEffect(() => {
     document.title = "Coffe Shop - Login";
   }, [])
+
+  const controller = React.useMemo(() => new AbortController(), []);
+  const [form, setForm] = React.useState({
+    email: "",
+    password: "",
+  });
+
+  const loginHandler = (e) => {
+    e.preventDefault();
+    login(form.email, form.password, controller)
+      .then((res) => {
+        // console.log(res.data);
+        const key = "tokokopi-token";
+        save(key, res.data.token);
+        handleRedirect();
+      })
+      .catch((err) => console.log(err));
+  };
+  const onChangeForm = (e) =>
+    setForm((form) => {
+      return {
+        ...form,
+        [e.target.name]: e.target.value,
+      };
+    });
+
+  const handleRedirect = () => {
+    navigate('/');
+  }
 
   return (
     <>
@@ -29,24 +62,22 @@ function Login() {
                 </div>
               </div>
               <p className="title-signup text-center font-bold text-xl mt-10 lg:text-3xl">Login</p>
-              <form id="formSign" className="form-signup mt-10 px-8 flex flex-col gap-4 mb-3">
-                <div>
-                  <p>Email Address :</p>
-                  <input type="text" placeholder="Enter your email address" id="emailInput" className='w-full rounded-xl px-4 py-2 text-black lg:border lg:border-black' />
-                  <span id="emailError"></span>
-                  <div className="circle-check" id="circleCheck"></div>
-                </div>
-                <div>
-                  <p>Password :</p>
-                  <input type="password" placeholder="Enter your password" id="passwordInput" className='w-full rounded-xl px-4 py-2 text-black lg:border lg:border-black' />
-                  <span id="passwordError"></span>
-                  <div className="circle-check" id="circleCheck1"></div>
-                </div>
-                <div className="input-form">
-                  <Link to="/forgot" className='underline text-secondary'>Forgot password?</Link>
-                </div>
+              <form id="formSign" className="form-signup mt-10 px-8 flex flex-col gap-2 mb-3">
+                <label htmlFor='emailInput'>Email Address :</label>
+                <input type="text" placeholder="Enter your email address" id="emailInput" className='w-full rounded-xl px-4 py-2 text-black lg:border lg:border-black' value={form.email} onChange={onChangeForm} name="email" />
+                <span id="emailError"></span>
+                <div className="circle-check" id="circleCheck"></div>
+
+                <label htmlFor='passwordInput'>Password :</label>
+                <input type="password" placeholder="Enter your password" id="passwordInput" className='w-full rounded-xl px-4 py-2 text-black lg:border lg:border-black' value={form.password} onChange={onChangeForm} name="password" />
+                <span id="passwordError"></span>
+                <div className="circle-check" id="circleCheck1"></div>
+
+
+                <Link to="/forgot" className='underline text-secondary'>Forgot password?</Link>
+
                 <span id="submitError"></span>
-                <button className="pointer py-2 bg-primary text-secondary font-bold rounded-lg cursor-pointer" type="submit" >Sign Up</button>
+                <button className="pointer py-2 bg-primary text-secondary font-bold rounded-lg cursor-pointer" onClick={loginHandler} >Login</button>
                 <button className="cursor-pointer py-2 flex justify-center bg-bgsecondary lg:shadow-md rounded-lg">
                   <img src={Icongoogle} alt="icon-google" />
                   <p className="btn-txt text-black">Sign up with Google</p>

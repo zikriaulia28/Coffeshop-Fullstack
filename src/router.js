@@ -10,6 +10,8 @@ import Forgot from "./pages/Forgot";
 import Profile from "./pages/Profile";
 import Product from "./pages/Product";
 import ProductDetails from "./pages/ProductDetails";
+import Auth from "./pages/Auth";
+
 
 const router = createBrowserRouter([
   // { path: "/", element: <App name="Fazztrack" age={17} aria-required href={"https://reactjs.org"} /> },
@@ -21,7 +23,11 @@ const router = createBrowserRouter([
   { path: "/forgot", element: <Forgot /> },
   { path: "/profile", element: <Profile /> },
   { path: "/product", element: <Product /> },
-  { path: "/product/:id", element: < ProductDetails /> }
+  { path: "/product/:id", element: < ProductDetails /> },
+  {
+    path: "/auth",
+    element: <Auth />,
+  },
 
 
 ])
