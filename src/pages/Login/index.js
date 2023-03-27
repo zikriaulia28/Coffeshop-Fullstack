@@ -24,9 +24,11 @@ function Login() {
     e.preventDefault();
     login(form.email, form.password, controller)
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         const key = "tokokopi-token";
-        save(key, res.data.token);
+        save(key, res.data);
+        // save(key, res.data);
+        // save(key, res.data.role_id);
         handleRedirect();
       })
       .catch((err) => console.log(err));
