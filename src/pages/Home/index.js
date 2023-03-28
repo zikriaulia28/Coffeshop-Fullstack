@@ -38,41 +38,43 @@ function Home() {
       </section>
 
       {/* <!--CARDs --> */}
-      <section className="flex w-4/5 md:w-11/12 lg:w-4/5 relative py-2 md:py-4 translate-x-10 -translate-y-14 md:-translate-y-12 lg:translate-x-36 lg:py-8 lg:-translate-y-16 justify-evenly items-center rounded-xl bg-white shadow-xl">
-        <div className="flex flex-col md:flex-row justify-center items-center sm:justify-evenly xl:justify-center xl:gap-9 w-full h-full">
-          {/* <!-- STAFF --> */}
-          <div className="flex w-10 h-10 md:w-14 md:h-14 items-center justify-center rounded-full bg-primary">
-            <i className="bi bi-person-fill text-secondary text-2xl"></i>
+      <section className="w-full relative">
+        <div className='flex w-4/5  lg:w-4/5 absolute py-2 md:py-4 translate-x-10 -translate-y-14 md:-translate-y-12 md:translate-x-[4.5rem] lg:translate-x-36 lg:py-8 lg:-translate-y-16 justify-evenly items-center rounded-xl bg-white shadow-xl'>
+          <div className="flex flex-col md:flex-row justify-center items-center sm:justify-evenly xl:justify-center xl:gap-9 w-full h-full">
+            {/* <!-- STAFF --> */}
+            <div className="flex w-10 h-10 md:w-14 md:h-14 items-center justify-center rounded-full bg-primary">
+              <i className="bi bi-person-fill text-secondary text-2xl"></i>
+            </div>
+            <div className="flex flex-col items-center">
+              <h2 className="font-bold text-xl md:text-2xl">90+</h2>
+              <p className="text-sm md:text-base text-greydark">Staff</p>
+            </div>
           </div>
-          <div className="flex flex-col items-center">
-            <h2 className="font-bold text-xl md:text-2xl">90+</h2>
-            <p className="text-sm md:text-base text-greydark">Staff</p>
+          {/* <!-- LOCATION--> */}
+          <div className="flex flex-col md:flex-row justify-center items-center sm:justify-evenly xl:justify-center xl:gap-9 w-full h-full border-x-2 border-[#EEEFF2]">
+            <div className="flex w-10 h-10 md:w-14 md:h-14 items-center justify-center rounded-full bg-primary">
+              <i className="bi bi-geo-alt-fill text-secondary text-2xl"></i>
+            </div>
+            <div className="flex flex-col items-center">
+              <h2 className="font-bold text-xl md:text-2xl">30+</h2>
+              <p className="text-sm md:text-base text-greydark">Stores</p>
+            </div>
+          </div>
+          {/* <!-- CUSTOMER--> */}
+          <div className="flex flex-col md:flex-row justify-center items-center sm:justify-evenly xl:justify-center xl:gap-9 w-full h-full">
+            <div className="flex w-10 h-10 md:w-14 md:h-14 items-center justify-center rounded-full bg-primary">
+              <i className="bi bi-heart-fill text-secondary text-2xl"></i>
+            </div>
+            <div className="flex flex-col items-center">
+              <h2 className="font-bold text-xl md:text-2xl">800+</h2>
+              <p className="text-sm md:text-base text-greydark">Customers</p>
+            </div>
           </div>
         </div>
-        {/* <!-- LOCATION--> */}
-        <div className="flex flex-col md:flex-row justify-center items-center sm:justify-evenly xl:justify-center xl:gap-9 w-full h-full border-x-2 border-[#EEEFF2]">
-          <div className="flex w-10 h-10 md:w-14 md:h-14 items-center justify-center rounded-full bg-primary">
-            <i className="bi bi-geo-alt-fill text-secondary text-2xl"></i>
-          </div>
-          <div className="flex flex-col items-center">
-            <h2 className="font-bold text-xl md:text-2xl">30+</h2>
-            <p className="text-sm md:text-base text-greydark">Stores</p>
-          </div>
-        </div>
-        {/* <!-- CUSTOMER--> */}
-        <div className="flex flex-col md:flex-row justify-center items-center sm:justify-evenly xl:justify-center xl:gap-9 w-full h-full">
-          <div className="flex w-10 h-10 md:w-14 md:h-14 items-center justify-center rounded-full bg-primary">
-            <i className="bi bi-heart-fill text-secondary text-2xl"></i>
-          </div>
-          <div className="flex flex-col items-center">
-            <h2 className="font-bold text-xl md:text-2xl">800+</h2>
-            <p className="text-sm md:text-base text-greydark">Customers</p>
-          </div>
-        </div>
-      </section>
+      </section >
 
       {/* <!-- TEAMWORK --> */}
-      <section className="flex h-full flex-col items-center px-4 lg:px-36">
+      <section section className="flex h-full flex-col items-center mt-20 px-4 lg:px-36" >
         <div className="flex flex-col md:flex-row w-full md:gap-[10%]">
           <img src={Benefit} alt="" className="md:w-1/2 h-fit w-screen" />
           <div className="flex flex-col md:w-1/2 justify-center">
@@ -86,10 +88,10 @@ function Home() {
             </ul>
           </div>
         </div>
-      </section>
+      </section >
 
-      <section className="bg-[#f8f8f885]  flex justify-center mt-10 py-4 px-4 lg:px-36 lg:py-8">
-        <main className="flex flex-col items-center">
+      <section className="bg-[#f8f8f885] w-full flex justify-center mt-10 py-4 px-4 lg:px-36 lg:py-8">
+        <main className="w-full flex flex-col items-center">
           {/* <!-- FAVORITE PEOPLE --> */}
           <h3 className="font-medium text-2xl md:text-3xl ">Here is People’s Favorite</h3>
           <p className="text-center text-greydark text-sm md:text-base leading-6 md:leading-7 my-4 md:my-6">Let’s choose and have a bit taste of poeple’s favorite. It might be yours too!</p>
@@ -168,16 +170,16 @@ function Home() {
           <div className='px-4 lg:px-36'>
             <h3 className="text-center font-medium text-2xl md:text-3xl  md:leading-[50px]">Visit Our Store in the Spot on the Map Below</h3>
             <p className="text-center text-greydark text-sm md:text-base mt-4">See our store in every city on the spot and spen your good day there. See you soon!</p>
-            <div className='w-full mt-4 lg:mt-8 px-4'>
-              <img src={Maps} alt="" className='w-full h- h-full object-cover' />
+            <div className='w-full h-auto mt-4 md:mt-8 px-4'>
+              <img src={Maps} alt="" className='w-full h-auto object-cover' />
             </div>
           </div>
           {/* <!-- [END] LOCATION CONTENT --> */}
 
           {/* <!-- PARTNER CONTENT --> */}
-          <div className='px-4 mt-20'>
+          <div className='w-full px-4 mt-20'>
             <h3 className="text-center font-medium text-2xl md:text-3xl mb-8 lg:text-4xl">Our Partner</h3>
-            <div className="flex gap-4 mb-20 md:w-full md:px-4 lg:justify-center">
+            <div className="flex gap-4 mb-20 md:w-full md:px-4 justify-center">
               <div className="w-16 h-16  md:w-44 md:h-14 ">
                 <img src={Netflix} alt="" className="w-full md:h-full grayscale" />
               </div>
@@ -198,13 +200,13 @@ function Home() {
           {/* <!-- [END] PARTNER CONTENT --> */}
 
           {/* <!-- COMENTARY CUSTOMER CONTENT --> */}
-          <div className='px-4'>
+          <div className=''>
             <h3 className="text-center font-medium text-2xl md:text-3xl ">Loved by Thousands of Happy Customer</h3>
             <p className="text-center text-greydark text-sm md:text-base leading-6 md:leading-7 my-4 md:my-6">These are the stories of our customers who have visited us with great pleasure.</p>
             {/* <!-- COMMENTARY CONTAINER --> */}
             <div className="flex flex-col items-center gap-2 lg:flex-row lg:snap-proximity lg:snap-x overflow-x-auto">
               {/* <!-- CARD COMMENT-1 --> */}
-              <div className=" flex flex-col p-4 sm:p-7 w-5/6 lg:w-82  h-[230px] border-2 rounded-xl border-grey lg:snap-center">
+              <div className=" flex flex-col p-4 w-5/6 md:w-4/6 lg:w-82  h-[230px] border-2 rounded-xl border-grey lg:snap-center">
                 <div className="flex w-full gap-3 mb-6">
                   <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full overflow-hidden">
                     <img src={Testi1} alt="" />
@@ -221,7 +223,7 @@ function Home() {
                 <p className="text-xs md:text-base">“Wow... I am very happy to spend my whole day here. the Wi-fi is good, and the coffee and meals tho. I like it here!! Very recommended!</p>
               </div>
               {/* <!-- CARD COMMENT-2 --> */}
-              <div className="flex flex-col p-4 sm:p-7 w-5/6 lg:w-82 h-[230px] border-2 rounded-xl border-grey lg:snap-center">
+              <div className="flex flex-col p-4 w-5/6 md:w-4/6 lg:w-82 h-[230px] border-2 rounded-xl border-grey lg:snap-center">
                 <div className="flex w-full gap-3 mb-6">
                   <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full overflow-hidden">
                     <img src={Testi2} alt="" />
@@ -238,7 +240,7 @@ function Home() {
                 <p className="text-xs md:text-base">“I like it because I like to travel far and still can make my day better just by drinking their Hazelnut Latte</p>
               </div>
               {/* <!-- CARD COMMENT-3 --> */}
-              <div className="flex flex-col p-4 sm:p-7 w-5/6 lg:w-82 h-[230px] border-2 rounded-xl border-grey lg:snap-center">
+              <div className="flex flex-col p-4 w-5/6 md:w-4/6 lg:w-82 h-[230px] border-2 rounded-xl border-grey lg:snap-center">
                 <div className="flex w-full gap-3 mb-6">
                   <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full overflow-hidden">
                     <img src={Testi3} alt="" />
@@ -273,7 +275,7 @@ function Home() {
           </div>
 
           {/* <!-- RECLAME CHECK PROMO --> */}
-          <section className="relative -translate-y-14 w-10/12 lg:w-full flex justify-center">
+          <section className="relative -translate-y-14 w-10/12 md:w-2/3 lg:w-full flex justify-center">
             <div className="absolute w-full h-32 md:p-10 p-4 flex flex-col md:flex-row justify-between items-center rounded-xl bg-white shadow-xl">
               <div className="">
                 <h1 className="text-lg md:text-4xl font-medium max-w-sm">Check our promo today!</h1>

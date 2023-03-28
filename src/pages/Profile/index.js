@@ -2,11 +2,17 @@ import React, { useEffect } from 'react'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import ImgProfile from '../../assets/profile.webp'
+import { remove } from '../../utils/localStorage'
 
 function Profile() {
   useEffect(() => {
     document.title = "Coffe Shop - Profile";
   }, [])
+
+  const logout = () => {
+    remove("tokokopi-token");
+  }
+
   return (
     <>
       <Header />
@@ -97,7 +103,7 @@ function Profile() {
                 </div>
                 <div className="flex flex-col gap-5 mt-4">
                   <button className="py-3 rounded-2xl text-secondary bg-gray-300 flex justify-between px-10">Edit Password <i className="bi bi-caret-right-fill text-secondary"></i></button>
-                  <button className="py-3 rounded-2xl text-secondary bg-gray-300 flex justify-between px-10">Log out <i className="bi bi-caret-right-fill text-secondary"></i></button>
+                  <button className="py-3 rounded-2xl text-secondary bg-gray-300 flex justify-between px-10" onClick={logout}>Log out <i className="bi bi-caret-right-fill text-secondary"></i></button>
                 </div>
               </div>
 
