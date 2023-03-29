@@ -1,19 +1,35 @@
 import React, { useState, useEffect } from 'react'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
+import profilePlaceholder from '../../assets/profilePlaceholder.png';
 import { remove } from '../../utils/localStorage'
 import { get } from "../../utils/localStorage"
+import { updateProfile } from "../../utils/https/auth";
 import axios from "axios";
+import moment from 'moment';
+
 
 function Profile() {
   // eslint-disable-next-line no-undef
   const baseUrl = `${process.env.REACT_APP_SERVER_HOST}`;
+  // const controller = React.useMemo(() => new AbortController(), []);
   const [profileData, setProfileData] = useState({});
   const [showInput, setShowInput] = useState(false);
+  const [form, setForm] = React.useState({
+    image: null,
+    display_name: '',
+    firstname: '',
+    lastname: '',
+    address: '',
+    birth_day: '',
+  });
+
   useEffect(() => {
     const userId = get("tokokopi-token")
-    setProfileData(userId.id)
-    fetchProfileData(userId);
+    if (userId) {
+      setProfileData(userId.id)
+      fetchProfileData(userId);
+    }
     document.title = "Coffe Shop - Profile";
   }, [])
 
@@ -36,9 +52,33 @@ function Profile() {
     remove("tokokopi-token");
   }
 
-  const onChangeHandler = (e) => {
-    console.log(e.target.value);
-  }
+  // const onChangeHandler = (e) => {
+  //   console.log(e.target.value);
+  // }
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+    setForm((prevForm) => ({ ...prevForm, image: file }));
+  };
+
+  // const handleUpload = async () => {
+  //   try {
+  //     updateProfile
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  const handleUpload = () => {
+    updateProfile(form.display_name, form.firstname, form.lastname, form.address, form.birth_day, form.image)
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const birthDay = profileData.birth_day;
+  const formattedDate = moment(birthDay).format('YYYY-MM-DD');
+
 
   return (
     <>
@@ -48,14 +88,23 @@ function Profile() {
           <h1 className="font-medium text-4xl py-4">User Profile</h1>
           <form action="">
             <div className="flex flex-col gap-4 lg:flex-row">
-              <div className="w-full h-[380px] flex flex-col justify-between items-center rounded-2xl border overflow-hidden bg-white relative lg:w-2/4">
-                <button className="btn w-8 h-8 flex justify-center items-center rounded-full bg-secondary cursor-pointer absolute top-28 right-[6.5rem]" onClick={handleClick}>
+              <div className="pt-4 w-full h-[380px] flex flex-col justify-between items-center rounded-2xl border overflow-hidden bg-white relative lg:w-2/4">
+                <button className="btn w-8 h-8 flex justify-center items-center rounded-full bg-secondary cursor-pointer absolute top-16 right-[6.5rem]" onClick={handleClick}>
                   <i className="bi bi-pencil text-white"></i>
                 </button>
-                {showInput && <input type='file' onChange={onChangeHandler} className='z-10 fixed translate-x-14 translate-y-40' />}
-                <span className="w-32 h-32 rounded-full border-2 overflow-hidden mt-8">
-                  <img src={profileData.image} alt="profile-picture" />
+                <span className="w-32 h-32 rounded-full border-2 overflow-hidden">
+                  <img src={!profileData.image ? profilePlaceholder : profileData.image} alt="profile-picture" className='w-full h-full rounded-full object-cover' />
                 </span>
+                {showInput && (
+                  <>
+                    <div className='flex justify-between px-4'>
+                      <input id="image" name="image" type='file' onChange={handleImageChange} className='w-2/3' />
+                      <button onClick={handleUpload} className="btn w-24 h-8 rounded-md bg-secondary text-white" disabled={!form.image}>
+                        Upload
+                      </button>
+                    </div>
+                  </>
+                )}
                 <h2 className="font-bold text-xl">{profileData.display_name}</h2>
                 <h3 className="text-sm text-greydark">{profileData.email}</h3>
                 <p className="text-center">Has been ordered 15 products</p>
@@ -107,7 +156,7 @@ function Profile() {
                   <div className="flex flex-1 gap-9 flex-col">
                     <div className="input flex flex-col">
                       <label htmlFor="birthDate" className="font-medium text-xl text-grey">DD/MM/YY</label>
-                      <input type="date" id="birthDate" className="py-2 border border-solid rounded-md pl-2" />
+                      <input type="date" id="birthDate" value={formattedDate} className="py-2 border border-solid rounded-md pl-2" />
                     </div>
                     <div className="flex gap-4">
                       <div className="input-data-radio flex gap-2">
