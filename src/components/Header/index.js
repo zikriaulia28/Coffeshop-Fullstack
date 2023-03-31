@@ -5,12 +5,16 @@ import humberger from "../../assets/menu-icon.svg"
 import { Link } from 'react-router-dom'
 import HeaderAuth from './headerAuth'
 import HeaderLogin from './headerLogin'
-import { get } from "../../utils/localStorage"
+// import { get } from "../../utils/localStorage"
+import { useSelector } from 'react-redux'
+
 
 
 
 function Header() {
-  const token = get("tokokopi-token")
+  // const userData = useSelector((state) => state.user);
+  const token = useSelector((state) => state.auth.data.token);
+  // const token = get("tokokopi-token")
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   useEffect(() => {
     // Disable scrolling when the menu is open

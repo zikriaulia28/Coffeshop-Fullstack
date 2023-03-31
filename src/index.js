@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import './styles/index.css';
 import router from './router'
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 // import App from './pages/Home';
 // import reportWebVitals from './reportWebVitals';
 
@@ -13,9 +15,11 @@ function Run({ isStrict, children }) {
 root.render(
 
   // {/* props dimasukkan sebagai atribut */ }
-  <Run isStrict={true}>
-    <RouterProvider router={router} />
-  </Run >
+  <Provider store={store}>
+    <Run isStrict={true}>
+      <RouterProvider router={router} />
+    </Run >
+  </Provider>
 
 );
 

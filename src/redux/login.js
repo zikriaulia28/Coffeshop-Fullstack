@@ -1,45 +1,38 @@
-import React, { useEffect } from 'react'
-import Footer from '../../components/Footer'
-import Bgsignup from '../../assets/bg-signIn.webp'
-import Iconcoffer from '../../assets/icon-coffee.svg'
-import Icongoogle from '../../assets/google-logo.svg'
-import { Link, useNavigate } from "react-router-dom";
-import { save } from "../../utils/localStorage";
-import { login } from "../../utils/https/auth";
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginAsync } from './actions/authActions';
+import { selectAuth } from './reducers/authSlice';
+import Footer from '../../src/components/Footer';
+import Bgsignup from '../../src/assets/bg-signIn.webp';
+import Iconcoffer from '../../src/assets/icon-coffee.svg';
+import Icongoogle from '../../src/assets/google-logo.svg';
+
 
 function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isLoading, error } = useSelector(selectAuth);
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+  });
 
   useEffect(() => {
-    document.title = "Coffe Shop - Logins";
-  }, [])
-
-  const controller = React.useMemo(() => new AbortController(), []);
-  const [form, setForm] = React.useState({
-    email: "",
-    password: "",
-  });
+    document.title = 'Coffee Shop - Login';
+  }, []);
 
   const loginHandler = (e) => {
     e.preventDefault();
-    login(form.email, form.password, controller)
-      .then((res) => {
-        console.log(res.data);
-        const key = "tokokopi-token";
-        save(key, res.data);
-        // save(key, res.data);
-        // save(key, res.data.role_id);
-        handleRedirect();
-      })
-      .catch((err) => console.log(err));
+    dispatch(loginAsync(form.email, form.password));
+    handleRedirect();
   };
+
   const onChangeForm = (e) =>
-    setForm((form) => {
-      return {
-        ...form,
-        [e.target.name]: e.target.value,
-      };
-    });
+    setForm((prevForm) => ({
+      ...prevForm,
+      [e.target.name]: e.target.value,
+    }));
 
   const handleRedirect = () => {
     navigate('/');
@@ -47,6 +40,8 @@ function Login() {
 
   return (
     <>
+      {isLoading && <div>Loading...</div>}
+      {error && <div>{error}</div>}
       <main>
         <section>
           <div className="flex">
@@ -74,7 +69,6 @@ function Login() {
                 <input type="password" placeholder="Enter your password" id="passwordInput" className='w-full rounded-xl px-4 py-2 text-black lg:border lg:border-black' value={form.password} onChange={onChangeForm} name="password" />
                 <span id="passwordError"></span>
                 <div className="circle-check" id="circleCheck1"></div>
-
 
                 <Link to="/forgot" className='underline text-secondary'>Forgot password?</Link>
 

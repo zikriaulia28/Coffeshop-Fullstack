@@ -1,15 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { get } from "../localStorage";
+// import { get } from "../localStorage";
 import { Dialog } from '@headlessui/react'
+import { useSelector } from 'react-redux';
 
 function PrivateRoute({ children }) {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
-
+  const token = useSelector((state) => state.auth.data.token);
   React.useEffect(() => {
-    const token = get("tokokopi-token");
+    // const token = get("tokokopi-token");
     if (!token) {
       setIsModalOpen(true);
     }

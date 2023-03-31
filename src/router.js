@@ -5,7 +5,8 @@ import Home from "./pages/Home"
 import History from "./pages/History"
 import Payment from "./pages/Payment";
 import Signup from "./pages/Signup";
-import Login from "./pages/Login";
+// import Login from "./pages/Login";
+import Login from "./redux/login";
 import Forgot from "./pages/Forgot";
 import Profile from "./pages/Profile";
 import Product from "./pages/Product";
