@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-// import { get } from "../localStorage";
 import { Dialog } from '@headlessui/react'
 import { useSelector } from 'react-redux';
 
@@ -10,7 +9,6 @@ function PrivateRoute({ children }) {
 
   const token = useSelector((state) => state.auth.data.token);
   React.useEffect(() => {
-    // const token = get("tokokopi-token");
     if (!token) {
       setIsModalOpen(true);
     }
