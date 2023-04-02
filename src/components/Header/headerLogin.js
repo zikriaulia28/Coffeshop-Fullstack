@@ -5,11 +5,13 @@ import Chat from '../../assets/chat.svg'
 import { Link } from 'react-router-dom'
 // import { get } from "../../utils/localStorage"
 import { useSelector } from 'react-redux';
+import profilePlaceholder from '../../assets/profilePlaceholder.png';
 
 
 
 function headerLogin() {
-  const image = useSelector((state) => state.auth.data.image);
+  const image = useSelector((state) => state.user.data.data[0].image);
+  // console.log(image);
   // const [profileImage, setProfileImage] = useState();
   // useEffect(() => {
   //   // const image = get("tokokopi-token")
@@ -22,7 +24,7 @@ function headerLogin() {
       </div>
       <div><img src={Chat} alt="notif-chat" /></div>
       <li className='w-8 h-8 rounded-full'>
-        <Link to="/profile" ><img src={image} alt="profil" className='w-full h-full object-cover rounded-full' /></Link >
+        <Link to="/profile" ><img src={!image ? profilePlaceholder : image} alt="profil" className='w-full h-full object-cover rounded-full' /></Link >
       </li>
     </ul>
   )

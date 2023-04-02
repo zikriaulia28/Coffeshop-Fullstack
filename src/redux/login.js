@@ -34,14 +34,13 @@ function Login() {
       [e.target.name]: e.target.value,
     }));
 
-  const handleRedirect = () => {
+  const handleRedirect = async () => {
     navigate('/');
-  }
+  };
+
 
   return (
     <>
-      {isLoading && <div>Loading...</div>}
-      {error && <div>{error}</div>}
       <main>
         <section>
           <div className="flex">
@@ -81,6 +80,8 @@ function Login() {
                 {/* Overlay dan modal */}
                 <div className="overlay" id="overlay"></div>
                 <div className="modal" id="modal"></div>
+                {isLoading && <div>Loading...</div>}
+                {error && <div className='text-red-600'>Email/Password Salah</div>}
               </form>
             </div>
           </div>

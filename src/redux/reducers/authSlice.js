@@ -19,9 +19,22 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.data = action.payload
-      state.isLoggedIn = true;
     },
     loginFailure(state, action) {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    editPasswordRequest: (state) => {
+      state.isLoading = true;
+      state.error = null;
+    },
+    editPasswordSuccess: (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      state.data = action.payload;
+      state.isLoggedIn = false;
+    },
+    editPasswordFailure: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
@@ -34,7 +47,16 @@ const authSlice = createSlice({
   },
 });
 
-export const { loginRequest, loginSuccess, loginFailure, logout } = authSlice.actions;
+
+export const {
+  loginRequest,
+  loginSuccess,
+  loginFailure,
+  editPasswordRequest,
+  editPasswordSuccess,
+  editPasswordFailure,
+  logout
+} = authSlice.actions;
 
 export const selectAuth = createSelector(
   (state) => state.auth,

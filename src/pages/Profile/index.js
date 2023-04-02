@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import profilePlaceholder from '../../assets/profilePlaceholder.png';
-// import { remove } from '../../utils/localStorage'
-import { updateProfile, fetchProfileData } from "../../utils/https/auth";
+import { editPasswordAsync } from '../../redux/actions/authActions';
+import { fetchProfileData } from "../../utils/https/auth";
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, selectAuth } from '../../redux/reducers/authSlice';
 import { Dialog } from '@headlessui/react'
+import { updateProfileAsync } from "../../redux/actions/userActions";
+import { updateProfileFailure, updateProfileSuccess } from '../../redux/reducers/userSlice'
 
 
 function Profile() {
@@ -26,9 +28,14 @@ function Profile() {
     lastname: '',
     address: '',
     birth_day: '',
+    oldPassword: '',
+    newPassword: '',
+    email: '',
+    phone_number: '',
   });
   const id = useSelector((state) => state.auth.data.id);
   const token = useSelector((state) => state.auth.data.token);
+  const { isLoading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const auth = useSelector(selectAuth);
   useEffect(() => {
@@ -58,16 +65,29 @@ function Profile() {
     setForm((prevForm) => ({ ...prevForm, [name]: files[0] }));
   };
 
+  const handleGender = (e) => {
+    const { name, id } = e.target;
+    setForm((prevForm) => ({ ...prevForm, [name]: id }));
+    console.log(id);
+  };
+
   const handleUpdate = (e) => {
     e.preventDefault();
-    updateProfile(id, token, form.display_name, form.firstname, form.lastname, form.address, form.birth_day, form.image)
-      .then(data => {
-        console.log(data.data[0]);
-        setShowInput(false);
-        setEditContact(false)
+    dispatch(updateProfileAsync(id, token, form.display_name, form.firstname, form.lastname, form.address, form.birth_day, form.image, form.gender))
+      .then((response) => {
+        const resultProfile = response.data;
+        const result = response
+        dispatch(updateProfileSuccess(resultProfile));
+        console.log(result);
       })
-      .catch((err) => console.log(err));
+      .catch((error) => {
+        dispatch(updateProfileFailure(error.message));
+      });
+    setShowInput(false);
+    setEditContact(false)
+    setEditDetails(false);
   };
+
 
   const toggleEditContact = (e) => {
     e.preventDefault();
@@ -78,13 +98,13 @@ function Profile() {
     setEditDetails(!editDetails);
   }
 
-  const onChangeForm = (e) =>
-    setForm((form) => {
-      return {
-        ...form,
-        [e.target.name]: e.target.value,
-      };
-    });
+  // const onChangeForm = (e) =>
+  //   setForm((form) => {
+  //     return {
+  //       ...form,
+  //       [e.target.name]: e.target.value,
+  //     };
+  //   });
   // modal dialog
   const handleOpenDialog = (e) => {
     e.preventDefault();
@@ -98,7 +118,9 @@ function Profile() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Lakukan validasi atau aksi lainnya di sini
+    dispatch(editPasswordAsync(form.oldPassword, form.newPassword, token));
+    dispatch(logout());
+    window.location.reload();
   };
 
   const birthDay = moment(profileData.birth_day).format('YYYY-MM-DD');
@@ -136,11 +158,11 @@ function Profile() {
                 <div className="grid grid-cols-1 gap-2 ml-8 mr-14">
                   <div className="input flex flex-col">
                     <label htmlFor="email" className="font-medium text-xl text-grey">Email adress :</label>
-                    <input type="text" id="email" defaultValue={profileData.email} onChange={onChangeForm} name="email" className="py-2 border border-solid rounded-md pl-2" disabled={!editContact} />
+                    <input type="text" id="email" defaultValue={profileData.email} onChange={handleInputChange} name="email" className="py-2 border border-solid rounded-md pl-2" disabled={!editContact} />
                   </div>
                   <div className="input flex flex-col">
                     <label htmlFor="phone" className="font-medium text-xl text-grey">Mobile number :</label>
-                    <input type="text" id="phone" name="phone_number" defaultValue={profileData.phone_number} className="py-2 border border-solid rounded-md pl-2" disabled={!editContact} />
+                    <input type="text" id="phone" name="phone_number" defaultValue={profileData.phone_number} onChange={handleInputChange} className="py-2 border border-solid rounded-md pl-2" disabled={!editContact} />
                   </div>
                   <div className="input flex flex-col mb-2">
                     <label htmlFor="address" className="font-medium text-xl text-grey">Delivery address :</label>
@@ -177,16 +199,33 @@ function Profile() {
                       <input type="date" id="birthDate" name='birth_day' defaultValue={birthDay} className="py-2 border border-solid rounded-md pl-2" onChange={handleInputChange} disabled={!editDetails} />
                     </div>
                     <div className="flex gap-4">
-                      <div className="input-data-radio flex gap-2">
-                        <input type="radio" name="gender" id="male" value="male" className="hidden" readOnly disabled={!editDetails} />
-                        <span></span>
-                        <label htmlFor="male" className="font-medium text-xl text-grey cursor-pointer">Male</label>
-                      </div>
-                      <div className="input-data-radio flex gap-2">
-                        <input type="radio" name="gender" id="female" value="female" className="hidden" readOnly disabled={!editDetails} />
-                        <span></span>
-                        <label htmlFor="female" className="font-medium text-xl text-grey cursor-pointer">Female</label>
-                      </div>
+                      {profileData.gender == 'male' ? (
+                        <>
+                          <div className="input-data-radio flex gap-2">
+                            <input type="radio" name="gender" id="male" defaultChecked className="hidden" onChange={handleGender} disabled={!editDetails} />
+                            <span></span>
+                            <label htmlFor="male" className="font-medium text-xl text-grey cursor-pointer">Male</label>
+                          </div>
+                          <div className="input-data-radio flex gap-2">
+                            <input type="radio" name="gender" id="female" className="hidden" onChange={handleGender} disabled={!editDetails} />
+                            <span></span>
+                            <label htmlFor="female" className="font-medium text-xl text-grey cursor-pointer">Female</label>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="input-data-radio flex gap-2">
+                            <input type="radio" name="gender" id="male" className="hidden" onChange={handleGender} disabled={!editDetails} />
+                            <span></span>
+                            <label htmlFor="male" className="font-medium text-xl text-grey cursor-pointer">Male</label>
+                          </div>
+                          <div className="input-data-radio flex gap-2">
+                            <input type="radio" name="gender" id="female" defaultChecked className="hidden" onChange={handleGender} disabled={!editDetails} />
+                            <span></span>
+                            <label htmlFor="female" className="font-medium text-xl text-grey cursor-pointer">Female</label>
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -199,7 +238,7 @@ function Profile() {
                   <button className="py-3 rounded-2xl text-secondary bg-primary">Cancel</button>
                 </div>
                 <div className="flex flex-col gap-5 mt-4">
-                  <button onClick={handleOpenDialog} className="py-3 rounded-2xl text-secondary bg-gray-300 flex justify-between px-10">Edit Password <i className="bi bi-caret-right-fill text-secondary"></i></button>
+                  <button onClick={handleOpenDialog} className="py-3 rounded-2xl text-secondary bg-gray-300 flex justify-between px-10">{isLoading ? "Loading..." : "Edit Password"} <i className="bi bi-caret-right-fill text-secondary"></i></button>
                   {auth.data.token ? (
                     <button className="py-3 rounded-2xl text-secondary bg-gray-300 flex justify-between px-10" onClick={logouts}>
                       Log out <i className="bi bi-caret-right-fill text-secondary"></i>
@@ -235,8 +274,8 @@ function Profile() {
               </div>
             </div>
           </Dialog>
-        </div>
-      </main>
+        </div >
+      </main >
       <Footer />
     </>
   )

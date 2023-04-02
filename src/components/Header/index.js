@@ -9,11 +9,10 @@ import HeaderLogin from './headerLogin'
 import { useSelector } from 'react-redux'
 
 
-
-
 function Header() {
   // const userData = useSelector((state) => state.user);
   const token = useSelector((state) => state.auth.data.token);
+  // console.log(token);
   // const token = get("tokokopi-token")
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   useEffect(() => {

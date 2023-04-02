@@ -1,14 +1,44 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Footer from '../../components/Footer'
 import Bgsignup from '../../assets/bg-signIn.webp'
 import Iconcoffer from '../../assets/icon-coffee.svg'
 import Icongoogle from '../../assets/google-logo.svg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { register } from "../../utils/https/auth";
 
 function Signup() {
+  const navigate = useNavigate();
+  const controller = React.useMemo(() => new AbortController(), []);
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+    phone_number: ''
+  });
+
   useEffect(() => {
     document.title = "Coffe Shop - Sign Up";
   }, [])
+
+  const registerHandler = (e) => {
+    e.preventDefault();
+    register(form.email, form.password, form.phone_number, controller)
+      .then((res) => {
+        console.log(res.data);
+        handleRedirect();
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const onChangeForm = (e) =>
+    setForm((prevForm) => ({
+      ...prevForm,
+      [e.target.name]: e.target.value,
+    }));
+
+  const handleRedirect = () => {
+    navigate('/login');
+  }
+
   return (
     <>
       <main>
@@ -31,24 +61,24 @@ function Signup() {
               <form id="formSign" className="form-signup mt-10 px-8 flex flex-col gap-4 mb-3">
                 <div className="input-form">
                   <p>Email Address :</p>
-                  <input type="text" placeholder="Enter your email address" id="emailInput" className='w-full rounded-xl px-4 py-2 text-black lg:border lg:border-black' />
+                  <input type="text" placeholder="Enter your email address" id="emailInput" className='w-full rounded-xl px-4 py-2 text-black lg:border lg:border-black' value={form.email} onChange={onChangeForm} name="email" />
                   <span id="emailError"></span>
                   <div className="circle-check" id="circleCheck"></div>
                 </div>
                 <div className="input-form">
                   <p>Password :</p>
-                  <input type="password" placeholder="Enter your password" id="passwordInput" className='w-full rounded-xl px-4 py-2 text-black lg:border lg:border-black' />
+                  <input type="password" placeholder="Enter your password" id="passwordInput" className='w-full rounded-xl px-4 py-2 text-black lg:border lg:border-black' value={form.password} onChange={onChangeForm} name="password" />
                   <span id="passwordError"></span>
                   <div className="circle-check" id="circleCheck1"></div>
                 </div>
                 <div className="input-form">
                   <p>Phone Number :</p>
-                  <input type="text" placeholder="Enter your phone number" id="numInput" className='w-full rounded-xl px-4 py-2 text-black lg:border lg:border-black' />
+                  <input type="number" placeholder="Enter your phone number" id="numInput" className='w-full rounded-xl px-4 py-2 text-black lg:border lg:border-black' value={form.phone_number} onChange={onChangeForm} name="phone_number" />
                   <span id="numError"></span>
                   <div className="circle-check" id="circleCheck2"></div>
                 </div>
                 <span id="submitError"></span>
-                <button className="pointer py-2 bg-primary text-secondary font-bold rounded-lg cursor-pointer" type="submit" >Sign Up</button>
+                <button className="pointer py-2 bg-primary text-secondary font-bold rounded-lg cursor-pointer" onClick={registerHandler} >Sign Up</button>
                 <button className="cursor-pointer py-2 flex justify-center bg-bgsecondary lg:shadow-md rounded-lg">
                   <img src={Icongoogle} alt="icon-google" />
                   <p className="btn-txt text-black">Sign up with Google</p>
