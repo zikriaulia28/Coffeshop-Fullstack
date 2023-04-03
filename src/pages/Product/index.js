@@ -1,14 +1,72 @@
-import React, { useEffect } from 'react'
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import Promo from '../../assets/p1.webp'
-import ProductList from './getProducts'
+import CardProducts from './getProducts'
+import Loading from '../../components/Loader/loader'
+
+import withNavigate from "../../utils/wrapper/withNavigate";
+import { getProduct } from "../../utils/https/product";
+import * as te from "tw-elements";
+// import axios from "axios";
+import { useSearchParams } from 'react-router-dom'
 
 
 function Product() {
+  const [data, setData] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(false);
+  const [category, setCategories] = useState(
+    searchParams.get("category") || null
+  );
+  const [meta, setMeta] = useState({});
+  const [page, setPage] = useState(searchParams.get("page") || 1);
+  const [limit, setLimit] = useState(12);
+  const [name, setName] = useState("");
+  const [order, setOrder] = useState(searchParams.get("orderBy") || "newest");
   useEffect(() => {
     document.title = "Coffe Shop - Product";
-  }, [])
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const { data } = await getProduct({
+          category,
+          page,
+          limit,
+          name,
+          order,
+        });
+        console.log(data.category);
+        setData(data.data);
+        setMeta(data.meta);
+        // console.log(data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, [category, page, limit, name, order])
+
+  const onChangeCategories = (category) => {
+    setCategories(category);
+    // setFavorite(false);
+    setSearchParams({ category: category });
+  };
+
+  const handleSort = (order) => {
+    setOrder(order);
+    setSearchParams({ category: category, orderBy: order });
+  };
+
+  const handlePage = (page) => {
+    setPage(page);
+    setCategories(null);
+    setSearchParams({ page });
+  };
+
   return (
     <>
       <Header />
@@ -61,24 +119,152 @@ function Product() {
           </div>
           <div className='w-full py-5'>
             <div className="menu-product ">
-              <ul className='flex md:justify-between'>
+              <ul className='flex md:justify-between text-center'>
                 <li>
                   <p className="product-actives">Favorite Product</p>
                   <div className="underline"></div>
                 </li>
-                <li>Coffee</li>
-                <li>Non Coffee</li>
-                <li>Foods</li>
-                <li>Add-on</li>
+                <li onClick={() => onChangeCategories(2)}
+                  className={`w-[7.6rem] font-bold hover:text-secondary  border-solid border-secondary cursor-pointer ${category == 2
+                    ? "text-secondary font-bold border-b-[3px] border-solid border-secondary"
+                    : "text-[#BCBEBD]"
+                    }`}
+                >
+                  Coffee
+                </li>
+                <li onClick={() => onChangeCategories(3)}
+                  className={`w-[7.6rem] font-bold hover:text-secondary  border-solid border-secondary cursor-pointer ${category == 3
+                    ? "text-secondary font-bold border-b-[3px] border-solid border-secondary"
+                    : "text-[#BCBEBD]"
+                    }`}
+                >
+                  Non Coffee
+                </li>
+                <li onClick={() => onChangeCategories(1)}
+                  className={`w-[7.6rem] font-bold hover:text-secondary  border-solid border-secondary cursor-pointer ${category == 1
+                    ? "text-secondary font-bold border-b-[3px] border-solid border-secondary"
+                    : "text-[#BCBEBD]"
+                    }`}
+                >
+                  Foods
+                </li>
+                <li onClick={() => onChangeCategories()}
+                  className="w-[7.6rem] font-bold hover:text-secondary  border-solid border-secondary cursor-pointer">
+                  Add-on
+                </li>
               </ul>
-              <ProductList />
             </div>
+            <section className="dropdown-res hidden">
+              <button className="menu btn-menu">List Menu</button>
+            </section>
+            <div className="flex flex-col  mt-3 w-full">
+              <div className="flex justify-end">
+                <div className="mb-1">
+                  <select
+                    className=" cursor-pointer bg-secondary rounded-md font-medium text-white w-[120px] p-2 "
+                    data-te-select-init
+                    data-te-select-filter="true"
+                    defaultValue={order}
+                    id="order"
+                    onChange={(event) => handleSort(event.target.value, order)}
+                  >
+                    <option value="priciest" className="cursor-pointer ">
+                      Priciest
+                    </option>
+                    <option value="cheapest" className="cursor-pointer ">
+                      Cheapest
+                    </option>
+                    <option value="newest" className="cursor-pointer ">
+                      Newest
+                    </option>
+                    <option value="latest" className="cursor-pointer ">
+                      Latest
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className="card-wrapper grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:mt-20 place-items-center mt-10 gap-x-4 gap-y-16 text-center">
+              {isLoading == true ? (
+                <Loading />
+              ) : (
+                false
+              )}
+
+              {!isLoading &&
+                data.length > 0 &&
+                data?.map((product) => (
+                  <CardProducts
+                    key={product.id}
+                    id={product.id}
+                    image={product.image}
+                    name={product.name}
+                    price={product.price}
+                  />
+                ))}
+            </div>
+            <section className="bottom-list w-full mt-4 ">
+              <p className="text-secondary flex  items-start justify-start">
+                *the price has been cutted by discount appears
+              </p>
+              <div className=" flex  items-center font-medium mb-7 w-full">
+                <div className="flex flex-row  gap-3 ml-auto w-full justify-end">
+                  <button
+                    disabled={!meta.prev}
+                    onClick={() => handlePage(page - 1)}
+                    type="button"
+                    className="bg-secondary text-white rounded-l-2xl border-r border-gray-100 py-2 hover:bg-brown hover:text-white px-4"
+                  >
+                    <div className="flex flex-row align-middle">
+                      <svg
+                        className="w-5 mr-2"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
+                          clipRule="evenodd"
+                        ></path>
+                      </svg>
+                      <p className="ml-2">Prev</p>
+                    </div>
+                  </button>
+                  <button
+                    disabled={!meta.next}
+                    onClick={() => handlePage(page + 1)}
+                    type="button"
+                    className="bg-secondary text-white rounded-r-2xl py-2 border-l border-gray-200 hover:bg-brown hover:text-white px-4"
+                  >
+                    <div className="flex flex-row align-middle">
+                      <span className="mr-2">Next</span>
+                      <svg
+                        className="w-5 ml-2"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                        ></path>
+                      </svg>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </section>
           </div>
         </section>
+
       </main>
       <Footer />
-    </ >
+    </>
   )
 }
 
-export default Product
+// export default Product
+const NewProduct = withNavigate(Product);
+export default NewProduct;

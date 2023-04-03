@@ -10,6 +10,7 @@ import { logout, selectAuth } from '../../redux/reducers/authSlice';
 import { Dialog } from '@headlessui/react'
 import { updateProfileAsync } from "../../redux/actions/userActions";
 import { updateProfileFailure, updateProfileSuccess } from '../../redux/reducers/userSlice'
+import Loading from '../../components/Loader/loader';
 
 
 function Profile() {
@@ -21,6 +22,7 @@ function Profile() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = React.useState({
     image: null,
     display_name: '',
@@ -41,6 +43,7 @@ function Profile() {
   useEffect(() => {
     if (id) {
       fetchProfileData(id).then((result) => setProfileData(result));
+      setLoading(false);
     }
     document.title = "Coffe Shop - Profile";
   }, [id]);
@@ -52,6 +55,7 @@ function Profile() {
 
   const logouts = () => {
     dispatch(logout());
+    setLoading(false);
   }
 
   const handleInputChange = (e) => {
@@ -73,20 +77,27 @@ function Profile() {
 
   const handleUpdate = (e) => {
     e.preventDefault();
+    setLoading(true);
     dispatch(updateProfileAsync(id, token, form.display_name, form.firstname, form.lastname, form.address, form.birth_day, form.image, form.gender))
       .then((response) => {
         const resultProfile = response.data;
-        const result = response
+        const result = response;
         dispatch(updateProfileSuccess(resultProfile));
         console.log(result);
+        setLoading(false);
       })
       .catch((error) => {
         dispatch(updateProfileFailure(error.message));
+        setLoading(false);
+      })
+      .finally(() => {
+        setLoading(false);
       });
     setShowInput(false);
-    setEditContact(false)
+    setEditContact(false);
     setEditDetails(false);
   };
+
 
 
   const toggleEditContact = (e) => {
@@ -120,12 +131,30 @@ function Profile() {
     e.preventDefault();
     dispatch(editPasswordAsync(form.oldPassword, form.newPassword, token));
     dispatch(logout());
-    window.location.reload();
+    // window.location.reload();
   };
 
+  const handleCancel = (e) => {
+    e.preventDefault();
+    setShowInput(false);
+    setEditContact(false);
+    setEditDetails(false);
+  }
+
+  const getBirthDay = () => {
+    if (form.birth_day === "") {
+      return moment(profileData.birth_day).format('YYYY-MM-DD');
+    }
+    return moment(form.birth_day).format('YYYY-MM-DD');
+  }
+
   const birthDay = moment(profileData.birth_day).format('YYYY-MM-DD');
+  // const birthDay = new Date(profileData.birth_day).toLocaleDateString("en-CA")
+  console.log(birthDay);
 
-
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <>
@@ -196,7 +225,7 @@ function Profile() {
                   <div className="flex flex-1 gap-9 flex-col">
                     <div className="input flex flex-col">
                       <label htmlFor="birthDate" className="font-medium text-xl text-grey">DD/MM/YY</label>
-                      <input type="date" id="birthDate" name='birth_day' defaultValue={birthDay} className="py-2 border border-solid rounded-md pl-2" onChange={handleInputChange} disabled={!editDetails} />
+                      <input type="date" id="birthDate" name='birth_day' value={getBirthDay()} className="py-2 border border-solid rounded-md pl-2" onChange={handleInputChange} disabled={!editDetails} />
                     </div>
                     <div className="flex gap-4">
                       {profileData.gender == 'male' ? (
@@ -235,7 +264,7 @@ function Profile() {
                 <h3 className="font-bold text-xl text-center text-white">Do you want to save the change?</h3>
                 <div className="flex flex-col gap-5">
                   <button className="py-3 rounded-2xl text-white bg-secondary" onClick={handleUpdate}>Save Change</button>
-                  <button className="py-3 rounded-2xl text-secondary bg-primary">Cancel</button>
+                  <button className="py-3 rounded-2xl text-secondary bg-primary" onClick={handleCancel}>Cancel</button>
                 </div>
                 <div className="flex flex-col gap-5 mt-4">
                   <button onClick={handleOpenDialog} className="py-3 rounded-2xl text-secondary bg-gray-300 flex justify-between px-10">{isLoading ? "Loading..." : "Edit Password"} <i className="bi bi-caret-right-fill text-secondary"></i></button>

@@ -4,11 +4,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import authReducer from "./reducers/authSlice";
 import userReducer from "./reducers/userSlice";
-
-// const persistConfig = {
-//   key: "root",
-//   storage,
-// };
+import counter from "./reducers/counter";
 
 const authPersistConfig = {
   key: 'auth',
@@ -21,18 +17,15 @@ const userPersistConfig = {
   // whitelist: ["user.data.data"]
 };
 
-// const persistedReducer = persistReducer(persistConfig, authReducer, userReducer);
-
-// export const store = configureStore({
-//   reducer: {
-//     auth: persistedReducer,
-//     user: persistReducer,
-//   },
-// });
+const cartPersistConfig = {
+  key: 'cart',
+  storage: storage,
+};
 
 const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
-  user: persistReducer(userPersistConfig, userReducer)
+  user: persistReducer(userPersistConfig, userReducer),
+  cart: persistReducer(cartPersistConfig, counter)
 });
 
 export const store = configureStore({
@@ -42,3 +35,16 @@ export const store = configureStore({
 export const persistor = persistStore(store);
 
 // export default rootReducer;
+// const persistedReducer = persistReducer(persistConfig, authReducer, userReducer);
+
+// export const store = configureStore({
+//   reducer: {
+//     auth: persistedReducer,
+//     user: persistReducer,
+//   },
+// });
+
+// const persistConfig = {
+//   key: "root",
+//   storage,
+// };
