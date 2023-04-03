@@ -161,7 +161,7 @@ function Product() {
               <div className="flex justify-end">
                 <div className="mb-1">
                   <select
-                    className=" cursor-pointer bg-secondary rounded-md font-medium text-white w-[120px] p-2 "
+                    className=" cursor-pointer bg-secondary rounded-md font-medium text-white w-[120px] p-2 outline-none "
                     data-te-select-init
                     data-te-select-filter="true"
                     defaultValue={order}

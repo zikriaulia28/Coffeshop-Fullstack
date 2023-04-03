@@ -80,7 +80,17 @@ export const editPassword = (oldPassword, newPassword, token) => {
   });
 };
 
+export const getOtp = (email) => {
+  const url = `${baseUrl}/auth/otp`;
+  const body = { email };
+  return axios.patch(url, body);
+};
 
+export const forgot = (email, otp, password) => {
+  const url = `${baseUrl}/auth/forgot`;
+  const body = { email, otp, password };
+  return axios.patch(url, body);
+};
 
 
 
