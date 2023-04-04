@@ -18,7 +18,7 @@ function PrivateRoute({ children }) {
     <>
       <Dialog
         open={isModalOpen}
-        onClose={() => navigate("/login", { replace: true })}
+        onClose={() => navigate("/", { replace: true })}
         className="fixed z-10 inset-0 overflow-y-auto"
       >
         <div className="flex items-center justify-center min-h-screen">
@@ -26,7 +26,7 @@ function PrivateRoute({ children }) {
             <h2 className="text-lg font-medium mb-4">Anda harus login terlebih dahulu</h2>
             <button
               className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-              onClick={() => navigate("/login", { replace: true })}
+              onClick={() => navigate("/", { replace: true })}
             >
               Login
             </button>

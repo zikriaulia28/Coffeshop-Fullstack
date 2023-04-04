@@ -42,7 +42,7 @@ function Login() {
     });
 
   const handleRedirect = () => {
-    navigate('/');
+    navigate('/home');
   }
 
   return (

@@ -19,11 +19,11 @@ import PrivateRoute from "./utils/wrapper/privateRoute";
 const router = createBrowserRouter([
   // { path: "/", element: <App name="Fazztrack" age={17} aria-required href={"https://reactjs.org"} /> },
 
-  { path: "/", element: <Home /> },
+  { path: "/", element: <Login /> },
+  { path: "/home", element: <Home /> },
   { path: "/history", element: (<PrivateRoute> <History /> </PrivateRoute>), },
   { path: "/payment", element: (<PrivateRoute> <Payment /> </PrivateRoute>), },
   { path: "/signup", element: <Signup /> },
-  { path: "/login", element: <Login /> },
   { path: "/forgot", element: <Forgot /> },
   { path: "/profile", element: (<PrivateRoute> <Profile /> </PrivateRoute>), },
   { path: "/product", element: (<PrivateRoute> <Product /> </PrivateRoute>), },

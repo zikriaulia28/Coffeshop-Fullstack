@@ -36,7 +36,7 @@ function Login() {
     }));
 
   const handleRedirect = () => {
-    navigate('/');
+    navigate('/home');
   };
 
   const togglePasswordVisibility = (e) => {
