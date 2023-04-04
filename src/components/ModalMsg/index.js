@@ -9,7 +9,7 @@ function ModalMsg({ isOpen, onClose, msg }) {
       {isOpen && (
         <div
           onClick={onClose}
-          className="fixed z-50 w-screen h-screen bg-slate-800/90 flex justify-center items-center top-0 left-0"
+          className="fixed z-50 w-screen h-screen bg-gray-500/20 flex justify-center items-center top-0 left-0"
         >
           <div
             onClick={handleClick}

@@ -4,7 +4,7 @@ import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import Promo from '../../assets/p1.webp'
 import CardProducts from './getProducts'
-import Loading from '../../components/Loader/loader'
+// import Loading from '../../components/Loader/loader'
 
 import withNavigate from "../../utils/wrapper/withNavigate";
 import { getProduct } from "../../utils/https/product";
@@ -22,25 +22,27 @@ function Product() {
   );
   const [meta, setMeta] = useState({});
   const [page, setPage] = useState(searchParams.get("page") || 1);
-  const [limit, setLimit] = useState(12);
+  const [limit, setLimit] = useState(10);
   const [name, setName] = useState("");
-  const [order, setOrder] = useState(searchParams.get("orderBy") || "newest");
+  const [order, setOrder] = useState(searchParams.get("order") || "newest");
   useEffect(() => {
     document.title = "Coffe Shop - Product";
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const { data } = await getProduct({
-          category,
-          page,
-          limit,
-          name,
-          order,
-        });
-        console.log(data.category);
-        setData(data.data);
-        setMeta(data.meta);
-        // console.log(data);
+        const result = await getProduct(searchParams, meta
+          //   {
+          //   category,
+          //   page,
+          //   limit,
+          //   name,
+          //   order,
+          // }
+        );
+        console.log(data);
+        setData(result.data.data);
+        setMeta(result.data.meta);
+        console.log(result.data);
       } catch (error) {
         console.log(error);
       } finally {
@@ -50,21 +52,22 @@ function Product() {
     fetchData();
   }, [category, page, limit, name, order])
 
-  const onChangeCategories = (category) => {
+  const onChangeCategories = (params) => {
     setCategories(category);
     // setFavorite(false);
-    setSearchParams({ category: category });
+    setSearchParams({ ...searchParams, category: params });
   };
 
-  const handleSort = (order) => {
+  const handleSort = (params) => {
     setOrder(order);
-    setSearchParams({ category: category, orderBy: order });
+    setSearchParams({ ...searchParams, order: params });
   };
 
   const handlePage = (page) => {
     setPage(page);
     setCategories(null);
-    setSearchParams({ page });
+    setOrder(null);
+    setSearchParams({ ...searchParams, page });
   };
 
   return (
@@ -148,7 +151,7 @@ function Product() {
                 >
                   Foods
                 </li>
-                <li onClick={() => onChangeCategories()}
+                <li onClick={() => onChangeCategories(4)}
                   className="w-[7.6rem] font-bold hover:text-secondary  border-solid border-secondary cursor-pointer">
                   Add-on
                 </li>
@@ -186,16 +189,20 @@ function Product() {
             </div>
             <div className="card-wrapper grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:mt-20 place-items-center mt-10 gap-x-4 gap-y-16 text-center">
               {isLoading == true ? (
-                <Loading />
+                <div className='h-screen w-screen grid place-items-center translate-x-72 -translate-y-60 '>
+                  <div className="bg-white  inline-block h-12 w-12 animate-spin border-secondary rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+                    <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+                  </div>
+                </div>
               ) : (
                 false
               )}
-
+              {console.log(data)}
               {!isLoading &&
                 data.length > 0 &&
-                data?.map((product) => (
+                data.map((product, idx) => (
                   <CardProducts
-                    key={product.id}
+                    key={idx}
                     id={product.id}
                     image={product.image}
                     name={product.name}

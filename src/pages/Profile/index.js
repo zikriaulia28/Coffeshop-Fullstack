@@ -42,7 +42,7 @@ function Profile() {
   const auth = useSelector(selectAuth);
   useEffect(() => {
     if (id) {
-      fetchProfileData(id).then((result) => setProfileData(result));
+      fetchProfileData(id, token).then((result) => setProfileData(result));
       setLoading(false);
     }
     document.title = "Coffe Shop - Profile";
@@ -144,13 +144,11 @@ function Profile() {
   // const birthDay = new Date(profileData.birth_day).toLocaleDateString("en-CA")
   console.log(birthDay);
 
-  if (loading) {
-    return <Loading />
-  }
+
 
   return (
     <>
-      {isLoading ? <Loading /> :
+      {loading ? <Loading /> :
         (<>
           <Header />
           <main className="w-full flex justify-center my-4">

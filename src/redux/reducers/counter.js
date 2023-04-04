@@ -24,7 +24,7 @@ const counterSlice = createSlice({
     //   };
     // },
     deliveryMethod: (prevState, action) => {
-      return { ...prevState, delivery: action.payload };
+      return { ...prevState, delivery: parseInt(action.payload) };
     },
     notes: (prevState, action) => {
       return { ...prevState, notes: action.payload };

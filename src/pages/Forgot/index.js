@@ -42,12 +42,12 @@ function Forgot() {
           console.log(err);
         });
     }
-    handleOpenDialog()
+    // handleOpenDialog()
   };
 
-  const handleOpenDialog = () => {
-    setIsDialogOpen(true);
-  };
+  // const handleOpenDialog = () => {
+  //   setIsDialogOpen(true);
+  // };
 
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
