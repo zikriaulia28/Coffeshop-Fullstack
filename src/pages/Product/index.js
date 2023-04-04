@@ -24,7 +24,7 @@ function Product() {
   const [page, setPage] = useState(searchParams.get("page") || 1);
   const [limit, setLimit] = useState(10);
   const [name, setName] = useState("");
-  const [order, setOrder] = useState(searchParams.get("order") || "newest");
+  const [order, setOrder] = useState(searchParams.get("category") || "newest");
   useEffect(() => {
     document.title = "Coffe Shop - Product";
     const fetchData = async () => {
@@ -53,15 +53,15 @@ function Product() {
   }, [category, page, limit, name, order])
 
   const onChangeCategories = (params) => {
-    setCategories(category);
-    // setFavorite(false);
-    setSearchParams({ ...searchParams, category: params });
+    setCategories(category === params ? null : params);
+    setSearchParams({ ...searchParams, category: category === params ? null : params });
   };
 
   const handleSort = (params) => {
-    setOrder(order);
-    setSearchParams({ ...searchParams, order: params });
+    setOrder(order === params ? null : params);
+    setSearchParams({ ...searchParams, order: order === params ? null : params });
   };
+
 
   const handlePage = (page) => {
     setPage(page);
@@ -69,6 +69,7 @@ function Product() {
     setOrder(null);
     setSearchParams({ ...searchParams, page });
   };
+
 
   return (
     <>
