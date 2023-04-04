@@ -12,9 +12,11 @@ import Loading from '../../components/Loader/loader'
 import NothingCart from './NothingCart'
 import ModaltoCart from "../../components/ModalMsg/ModaltoCart";
 import OrderProduct from "./orderProduct";
+import { useNavigate } from "react-router-dom";
 
 function Payment() {
   // const controller = useMemo(() => new AbortController(), []);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user.data.data[0]);
@@ -25,6 +27,7 @@ function Payment() {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [msg, setMsg] = useState("");
   const [payMethod, setPayMethod] = useState(0);
+
 
   const changePayment = (event) => {
     console.log(event.target.value);
@@ -70,10 +73,15 @@ function Payment() {
       setIsLoading(false);
     }
     dispatch(counterAction.resetCounter());
+    handleRedirect()
   };
   useEffect(() => {
     document.title = "Coffe Shop - Payment";
   }, [])
+
+  const handleRedirect = () => {
+    navigate('/history');
+  }
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
