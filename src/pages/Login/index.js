@@ -20,10 +20,10 @@ function Login() {
     password: "",
   });
 
-  const loginHandler = async (e) => {
+  const loginHandler = (e) => {
     e.preventDefault();
     try {
-      const result = await loginAsync(form.email, form.password, controller)
+      const result = loginAsync(form.email, form.password, controller)
       console.log(result)
       handleRedirect();
     } catch (error) {
