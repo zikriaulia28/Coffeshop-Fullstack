@@ -4,12 +4,13 @@ import Bgsignup from '../../assets/bg-signIn.webp'
 import Iconcoffer from '../../assets/icon-coffee.svg'
 import Icongoogle from '../../assets/google-logo.svg'
 import { Link, useNavigate } from "react-router-dom";
-import { save } from "../../utils/localStorage";
 import { login } from "../../utils/https/auth";
+import { loginSuccess } from '../../redux/reducers/authSlice'
+import { useDispatch } from 'react-redux'
 
 function Login() {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch()
   useEffect(() => {
     document.title = "Coffe Shop - Logins";
   }, [])
@@ -20,18 +21,24 @@ function Login() {
     password: "",
   });
 
-  const loginHandler = (e) => {
+  const loginHandler = async (e) => {
     e.preventDefault();
-    login(form.email, form.password, controller)
-      .then((res) => {
-        console.log(res.data);
-        const key = "tokokopi-token";
-        save(key, res.data);
-        // save(key, res.data);
-        // save(key, res.data.role_id);
-        handleRedirect();
-      })
-      .catch((err) => console.log(err));
+    try {
+      const result = await login(form.email, form.password, controller)
+      console.log(result)
+      dispatch(loginSuccess(result))
+      handleRedirect();
+    } catch (error) {
+      console.log(error);
+    }
+    // login(form.email, form.password, controller)
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     // save(key, res.data);
+    //     // save(key, res.data.role_id);
+    //     handleRedirect();
+    //   })
+    //   .catch((err) => console.log(err));
   };
   const onChangeForm = (e) =>
     setForm((form) => {
