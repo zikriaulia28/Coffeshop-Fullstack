@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux'
 
 function Header() {
   // const userData = useSelector((state) => state.user);
-  const token = useSelector((state) => state.auth.data.token) || null;
+  const token = useSelector((state) => state.auth.data?.token) || null;
   // console.log(token);
   // const token = get("tokokopi-token")
   const [isMenuOpen, setIsMenuOpen] = useState(false);

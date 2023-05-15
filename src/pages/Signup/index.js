@@ -36,7 +36,7 @@ function Signup() {
     }));
 
   const handleRedirect = () => {
-    navigate('/login');
+    navigate('/');
   }
 
   return (

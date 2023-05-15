@@ -50,7 +50,7 @@ function Product() {
       }
     };
     fetchData();
-  }, [category, page, limit, name, order])
+  }, [category, page, limit, name, order, name])
 
   const onChangeCategories = (params) => {
     setCategories(category === params ? null : params);
@@ -62,6 +62,10 @@ function Product() {
     setSearchParams({ ...searchParams, order: order === params ? null : params });
   };
 
+  const handleSearch = (params) => {
+    setOrder(name === params ? null : params);
+    setSearchParams({ ...searchParams, search: name === params ? null : params });
+  };
 
   const handlePage = (page) => {
     setPage(page);
@@ -162,7 +166,8 @@ function Product() {
               <button className="menu btn-menu">List Menu</button>
             </section>
             <div className="flex flex-col  mt-3 w-full">
-              <div className="flex justify-end">
+              <div className="flex justify-between">
+                <div><input type='text' onChange={(event) => handleSort(event.target.value, order)} className='border px-4 py-1' /></div>
                 <div className="mb-1">
                   <select
                     className=" cursor-pointer bg-secondary rounded-md font-medium text-white w-[120px] p-2 outline-none "

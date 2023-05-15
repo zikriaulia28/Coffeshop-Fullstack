@@ -15,6 +15,7 @@ import Loading from '../../components/Loader/loader';
 
 function Profile() {
   // const controller = React.useMemo(() => new AbortController(), []);
+  const image = useSelector((state) => state.user.data.data[0].image);
   const [profileData, setProfileData] = useState({});
   const [showInput, setShowInput] = useState(false);
   const [editContact, setEditContact] = useState(false);
@@ -161,7 +162,7 @@ function Profile() {
                       <i className="bi bi-pencil text-white"></i>
                     </button>
                     <span className="w-32 h-32 rounded-full border-2 overflow-hidden">
-                      <img src={!profileData.image ? profilePlaceholder : profileData.image} alt="profile-picture" className='w-full h-full rounded-full object-cover' />
+                      <img src={!image ? (!profileData.image ? profilePlaceholder : profileData.image) : image} alt="profile-picture" className='w-full h-full rounded-full object-cover' />
                     </span>
                     {showInput && (
                       <input id="image" name="image" type='file' onChange={handleImageChange} className='w-2/3 text-sm absolute translate-y-48' />
