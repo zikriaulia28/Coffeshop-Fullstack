@@ -4,13 +4,12 @@ import Bgsignup from '../../assets/bg-signIn.webp'
 import Iconcoffer from '../../assets/icon-coffee.svg'
 import Icongoogle from '../../assets/google-logo.svg'
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../../utils/https/auth";
-import { loginSuccess } from '../../redux/reducers/authSlice'
-import { useDispatch } from 'react-redux'
+// import { login } from "../../utils/https/auth";
+import { loginAsync } from '../../redux/actions/authActions'
 
 function Login() {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+
   useEffect(() => {
     document.title = "Coffe Shop - Logins";
   }, [])
@@ -24,9 +23,8 @@ function Login() {
   const loginHandler = async (e) => {
     e.preventDefault();
     try {
-      const result = await login(form.email, form.password, controller)
+      const result = await loginAsync(form.email, form.password, controller)
       console.log(result)
-      dispatch(loginSuccess(result))
       handleRedirect();
     } catch (error) {
       console.log(error);
