@@ -10,8 +10,8 @@ import profilePlaceholder from '../../assets/profilePlaceholder.png';
 
 
 function headerLogin() {
-  const image = useSelector((state) => state.user.data.data[0].image);
-  // console.log(image);
+  const image = useSelector((state) => state.user.image);
+  console.log(image);
   // const [profileImage, setProfileImage] = useState();
   // useEffect(() => {
   //   // const image = get("tokokopi-token")

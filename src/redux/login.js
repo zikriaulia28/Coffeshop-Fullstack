@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect, useState, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginAsync } from './actions/authActions';
-import { selectAuth } from './reducers/authSlice';
+import { login } from '../utils/https/auth';
+// import { selectAuth } from './reducers/authSlice';
+import { userAction } from './slices/auth';
 import Footer from '../../src/components/Footer';
 import Bgsignup from '../../src/assets/bg-signIn.webp';
 import Iconcoffer from '../../src/assets/icon-coffee.svg';
@@ -12,8 +13,11 @@ import Icongoogle from '../../src/assets/google-logo.svg';
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoading, error } = useSelector(selectAuth);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const controller = useMemo(() => new AbortController(), []);
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState('');
+  const [invalid, setInvalid] = useState(false);
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -23,10 +27,38 @@ function Login() {
     document.title = 'Coffee Shop - Login';
   }, []);
 
-  const loginHandler = (e) => {
+  const loginHandler = async (e) => {
     e.preventDefault();
-    dispatch(loginAsync(form.email, form.password));
-    handleRedirect();
+    setLoading(true);
+    try {
+      if (form.email === '' && form.password === '') {
+        setLoading(false);
+        setInvalid(true);
+        setMsg('Input is required!!!');
+        return;
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(form.email)) {
+        setMsg('Email is invalid!');
+        setInvalid(true);
+        setLoading(false);
+        return;
+      }
+      const res = await login(form.email, form.password, controller);
+      console.log('respon login', res.data);
+      const token = res.data.token;
+      const id = res.data.id;
+      const role_id = res.data.role_id;
+      const image = res.data.image;
+      // console.log('cek role', role);
+      dispatch(userAction.authLogin({ id, token, role_id, image }));
+      setLoading(false);
+      handleRedirect();
+    } catch (error) {
+      setLoading(false);
+      setMsg(error.response.data.msg);
+      setInvalid(true);
+    }
   };
 
   const onChangeForm = (e) =>
@@ -66,12 +98,11 @@ function Login() {
               <p className="title-signup text-center font-bold text-xl mt-10 lg:text-3xl">Login</p>
               <form id="formSign" className="form-signup mt-10 px-8 flex flex-col gap-2 mb-3">
                 <label htmlFor='emailInput'>Email Address :</label>
-                <input type="text" placeholder="Enter your email address" id="emailInput" className='w-full rounded-xl px-4 py-2 text-black border-gray-300 outline-none  focus:ring-secondary focus:border-secondary focus:ring-1' value={form.email} onChange={onChangeForm} name="email" />
+                <input type="text" placeholder="Enter your email address" id="emailInput" className='w-full rounded-xl px-4 py-2 border border-gray-300 outline-none  focus:ring-secondary focus:border-secondary focus:ring-1' value={form.email} onChange={onChangeForm} name="email" />
                 <span id="emailError"></span>
                 <div className="circle-check" id="circleCheck"></div>
 
                 <label htmlFor='passwordInput'>Password :</label>
-                {/* <input type="password" placeholder="Enter your password" id="passwordInput" className='w-full rounded-xl px-4 py-2 text-black lg:border lg:border-black' value={form.password} onChange={onChangeForm} name="password" /> */}
                 <div className="relative w-full  container">
                   <input
                     type={isPasswordVisible ? "text" : "password"}
@@ -133,8 +164,10 @@ function Login() {
                 {/* Overlay dan modal */}
                 <div className="overlay" id="overlay"></div>
                 <div className="modal" id="modal"></div>
-                {isLoading && <div>Loading...</div>}
-                {error && <div className='text-red-600'>Email/Password Salah</div>}
+                {loading && <div>Loading...</div>}
+                <div className='text-red-600'>
+                  {invalid && msg}
+                </div>
               </form>
             </div>
           </div>
