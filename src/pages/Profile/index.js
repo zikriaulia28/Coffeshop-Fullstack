@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import profilePlaceholder from '../../assets/profilePlaceholder.png';
 import { editPasswordAsync } from '../../redux/actions/authActions';
-import { fetchProfileData } from "../../utils/https/auth";
+import { getUser } from "../../utils/https/auth";
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout, selectAuth } from '../../redux/reducers/authSlice';
+import { logout } from '../../redux/reducers/authSlice';
 import { Dialog } from '@headlessui/react'
-import { updateProfileAsync } from "../../redux/actions/userActions";
-import { updateProfileFailure, updateProfileSuccess } from '../../redux/reducers/userSlice'
 import Loading from '../../components/Loader/loader';
 
 
 function Profile() {
-  // const controller = React.useMemo(() => new AbortController(), []);
-  const image = useSelector((state) => state.user.data.data[0].image);
+  const controller = useMemo(() => new AbortController(), []);
+  const image = useSelector((state) => state.user.image);
   const [profileData, setProfileData] = useState({});
   const [showInput, setShowInput] = useState(false);
   const [editContact, setEditContact] = useState(false);
@@ -23,7 +21,7 @@ function Profile() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [form, setForm] = React.useState({
     image: null,
     display_name: '',
@@ -36,16 +34,36 @@ function Profile() {
     email: '',
     phone_number: '',
   });
-  const id = useSelector((state) => state.auth.data.id);
-  const token = useSelector((state) => state.auth.data.token);
-  const { isLoading } = useSelector((state) => state.auth);
+  const id = useSelector((state) => state.user?.id);
+  console.log(id);
+  const token = useSelector((state) => state.user?.token);
   const dispatch = useDispatch();
-  const auth = useSelector(selectAuth);
-  useEffect(() => {
-    if (id) {
-      fetchProfileData(id, token).then((result) => setProfileData(result));
-      setLoading(false);
+
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const res = await getUser(id, controller);
+      const result = res.data.data[0];
+      // const email = result.email;
+      // const name = result.display_name;
+      // const image = result.image;
+      setProfileData(result);
+      // console.log(result);
+      // dispatch(userAction.dataUser({ name, email, image }));
+      // const resultHistory = await getHistory(token, controller);
+      // setDataHistory([...resultHistory.data.data]);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
     }
+  };
+
+  console.log(profileData)
+
+  useEffect(() => {
+    fetchData()
     document.title = "Coffe Shop - Profile";
   }, [id]);
 
@@ -56,7 +74,7 @@ function Profile() {
 
   const logouts = () => {
     dispatch(logout());
-    setLoading(false);
+    setIsLoading(false);
   }
 
   const handleInputChange = (e) => {
@@ -76,28 +94,28 @@ function Profile() {
     console.log(id);
   };
 
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    dispatch(updateProfileAsync(id, token, form.display_name, form.firstname, form.lastname, form.address, form.birth_day, form.image, form.gender))
-      .then((response) => {
-        const resultProfile = response.data;
-        const result = response;
-        dispatch(updateProfileSuccess(resultProfile));
-        console.log(result);
-        setLoading(false);
-      })
-      .catch((error) => {
-        dispatch(updateProfileFailure(error.message));
-        setLoading(false);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-    setShowInput(false);
-    setEditContact(false);
-    setEditDetails(false);
-  };
+  // const handleUpdate = (e) => {
+  //   e.preventDefault();
+  //   setIsLoading(true);
+  //   dispatch(updateProfileAsync(id, token, form.display_name, form.firstname, form.lastname, form.address, form.birth_day, form.image, form.gender))
+  //     .then((response) => {
+  //       const resultProfile = response.data;
+  //       const result = response;
+  //       dispatch(updateProfileSuccess(resultProfile));
+  //       console.log(result);
+  //       setIsLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       dispatch(updateProfileFailure(error.message));
+  //       setIsLoading(false);
+  //     })
+  //     .finally(() => {
+  //       setIsLoading(false);
+  //     });
+  //   setShowInput(false);
+  //   setEditContact(false);
+  //   setEditDetails(false);
+  // };
 
 
 
@@ -124,7 +142,7 @@ function Profile() {
     e.preventDefault();
     dispatch(editPasswordAsync(form.oldPassword, form.newPassword, token));
     dispatch(logout());
-    setLoading(false)
+    setIsLoading(false)
   };
 
   const handleCancel = (e) => {
@@ -149,7 +167,7 @@ function Profile() {
 
   return (
     <>
-      {loading ? <Loading /> :
+      {isLoading ? <Loading /> :
         (<>
           <Header />
           <main className="w-full flex justify-center my-4">
@@ -256,12 +274,12 @@ function Profile() {
                   <div className="flex min-w-[300px] max-w-sm flex-col justify-between pb-6">
                     <h3 className="font-bold text-xl text-center text-white">Do you want to save the change?</h3>
                     <div className="flex flex-col gap-5">
-                      <button className="py-3 rounded-2xl text-white bg-secondary" onClick={handleUpdate}>Save Change</button>
+                      <button className="py-3 rounded-2xl text-white bg-secondary">Save Change</button>
                       <button className="py-3 rounded-2xl text-secondary bg-primary" onClick={handleCancel}>Cancel</button>
                     </div>
                     <div className="flex flex-col gap-5 mt-4">
                       <button onClick={handleOpenDialog} className="py-3 rounded-2xl text-secondary bg-gray-300 flex justify-between px-10">{isLoading ? "Loading..." : "Edit Password"} <i className="bi bi-caret-right-fill text-secondary"></i></button>
-                      {auth.data.token ? (
+                      {token ? (
                         <button className="py-3 rounded-2xl text-secondary bg-gray-300 flex justify-between px-10" onClick={logouts}>
                           Log out <i className="bi bi-caret-right-fill text-secondary"></i>
                         </button>

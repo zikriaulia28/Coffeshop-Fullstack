@@ -1,33 +1,14 @@
 /* eslint-disable no-undef */
 import axios from "axios";
+const baseUrl = `${process.env.REACT_APP_SERVER_HOST}`;
 
-const getProduct = (params, meta
-  //   {
-  //   category,
-  //   limit,
-  //   page,
-  //   name,
-  //   order,
-  //   meta
-  //   // search,
-  // }
-) => {
-  // const url = `${process.env.REACT_APP_SERVER_HOST}/products?limit=${limit}&page=${page}&name=${name}&order=${order}&category=${category}`;
-  const url = `${process.env.REACT_APP_SERVER_HOST}/products?${params}`;
-  return axios.get(url, params, meta, {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
+export const getProduct = (params, controller) => {
+  const url = `${baseUrl}/products?limit=${params.limit}&page=${params.page}&category=${params.category}&search=${params.search}&order=${params.order}`;
+  console.log(url);
+  return axios.get(url, params, {
+    signal: controller.signal,
+    'Access-Control-Allow-Origin': '*',
   });
 };
 
-const getMeta = (params) => {
-  const url = `${process.env.REACT_APP_SERVER_HOST}/products/${params}`;
-  return axios.get(url, {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
-  });
-};
 
-export { getProduct, getMeta };

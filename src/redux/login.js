@@ -45,7 +45,7 @@ function Login() {
         return;
       }
       const res = await login(form.email, form.password, controller);
-      console.log('respon login', res.data);
+      console.log(res.data.data);
       const token = res.data.token;
       const id = res.data.id;
       const role_id = res.data.role_id;
@@ -56,7 +56,7 @@ function Login() {
       handleRedirect();
     } catch (error) {
       setLoading(false);
-      setMsg(error.response.data.msg);
+      setMsg(error.response);
       setInvalid(true);
     }
   };

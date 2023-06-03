@@ -7,7 +7,7 @@ function PrivateRoute({ children }) {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
-  const token = useSelector((state) => state.auth.data.token);
+  const token = useSelector((state) => state.user?.token);
   React.useEffect(() => {
     if (!token) {
       setIsModalOpen(true);

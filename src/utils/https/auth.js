@@ -57,14 +57,11 @@ export const updateUser = (id, token, email, phone_number) => {
   });
 };
 
-export const fetchProfileData = async (id) => {
-  try {
-    const response = await axios.get(`${baseUrl}/users/${id}`);
-    const result = response.data.data[0];
-    return result;
-  } catch (error) {
-    console.log(error);
-  }
+export const getUser = (id, controller) => {
+  const url = `${baseUrl}/users/${id}`;
+  return axios.get(url, {
+    signal: controller.signal,
+  });
 };
 
 export const editPassword = (oldPassword, newPassword, token) => {

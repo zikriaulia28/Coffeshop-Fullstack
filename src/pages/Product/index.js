@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import Promo from '../../assets/p1.webp'
@@ -14,66 +14,112 @@ import { useSearchParams } from 'react-router-dom'
 
 
 function Product() {
+  const controller = useMemo(() => new AbortController(), []);
   const [data, setData] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
-  const [category, setCategories] = useState(
-    searchParams.get("category") || null
-  );
-  const [meta, setMeta] = useState({});
-  const [page, setPage] = useState(searchParams.get("page") || 1);
-  const [limit, setLimit] = useState(10);
-  const [name, setName] = useState("");
-  const [order, setOrder] = useState(searchParams.get("category") || "newest");
+  const [searchInput, setSearchInput] = useState('');
+  const [category, setCategory] = useState('');
+  const [limit] = useState(8);
+  const [page, setPage] = useState(1);
+  const [order, setOrder] = useState('');
+  const [totalPage, setTotalPage] = useState(null);
+
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    const params = { limit, page, category, search: searchInput, order };
+    try {
+      const result = await getProduct(params, controller);
+      console.log(result);
+      setData(result.data.data);
+      setTotalPage(result.data.meta);
+      // setNoData(false);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      // if (error.response && error.response.status === 404) {
+      //   // setNoData(true);
+      // }
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     document.title = "Coffe Shop - Product";
-    const fetchData = async () => {
+    fetchData();
+  }, [category, order])
+
+
+  // const handleSort = (params) => {
+  //   setOrder(order === params ? null : params);
+  //   setSearchParams({ ...searchParams, order: order === params ? null : params });
+  // };
+
+  // const handleSearch = (params) => {
+  //   setOrder(name === params ? null : params);
+  //   setSearchParams({ ...searchParams, search: name === params ? null : params });
+  // };
+
+  // const handlePage = (page) => {
+  //   setPage(page);
+  //   setCategories(null);
+  //   setOrder(null);
+  //   setSearchParams({ ...searchParams, page });
+  // };
+
+  const handleSort = (value, currentOrder) => {
+    if (value !== currentOrder) {
+      setOrder(value);
+      setPage(1);
+    }
+  };
+
+
+  const handlePage = async (targetPage) => {
+    let nextPage = targetPage;
+    if (targetPage === 'next') {
+      if (!totalPage.next) {
+        return;
+      }
+      nextPage = page + 1;
+    } else if (targetPage === 'prev') {
+      if (!totalPage.prev) {
+        return;
+      }
+      nextPage = page - 1;
+    }
+
+    const params = { limit, page: nextPage, category, search: searchInput, order };
+    try {
+      console.log('FETCHING PAGE', params.page);
       setIsLoading(true);
-      try {
-        const result = await getProduct(searchParams, meta
-          //   {
-          //   category,
-          //   page,
-          //   limit,
-          //   name,
-          //   order,
-          // }
-        );
-        console.log(data);
-        setData(result.data.data);
-        setMeta(result.data.meta);
-        console.log(result.data);
-      } catch (error) {
-        console.log(error);
-      } finally {
+      const result = await getProduct(params, controller);
+      const newData = [...result.data.data];
+      setData(newData);
+      setPage(params.page);
+    } catch (error) {
+      console.log(error.response.data.msg);
+      if (error.response && error.response.status === 404) {
         setIsLoading(false);
       }
-    };
-    fetchData();
-  }, [category, page, limit, name, order, name])
-
-  const onChangeCategories = (params) => {
-    setCategories(category === params ? null : params);
-    setSearchParams({ ...searchParams, category: category === params ? null : params });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleSort = (params) => {
-    setOrder(order === params ? null : params);
-    setSearchParams({ ...searchParams, order: order === params ? null : params });
+  console.log('totalpage', page === totalPage)
+  // console.log(page)
+
+  const handleCategory = (info) => {
+    setPage(1);
+    setCategory(info);
   };
 
-  const handleSearch = (params) => {
-    setOrder(name === params ? null : params);
-    setSearchParams({ ...searchParams, search: name === params ? null : params });
+  const handleTabPress = (category) => {
+    handleCategory(category);
   };
 
-  const handlePage = (page) => {
-    setPage(page);
-    setCategories(null);
-    setOrder(null);
-    setSearchParams({ ...searchParams, page });
-  };
-
+  // console.log(totalPage);
 
   return (
     <>
@@ -128,11 +174,11 @@ function Product() {
           <div className='w-full py-5'>
             <div className="menu-product ">
               <ul className='flex md:justify-between text-center'>
-                <li>
+                <li onClick={() => handleTabPress('')}>
                   <p className="product-actives">Favorite Product</p>
                   <div className="underline"></div>
                 </li>
-                <li onClick={() => onChangeCategories(2)}
+                <li onClick={() => handleTabPress(2)}
                   className={`w-[7.6rem] font-bold hover:text-secondary  border-solid border-secondary cursor-pointer ${category == 2
                     ? "text-secondary font-bold border-b-[3px] border-solid border-secondary"
                     : "text-[#BCBEBD]"
@@ -140,7 +186,7 @@ function Product() {
                 >
                   Coffee
                 </li>
-                <li onClick={() => onChangeCategories(3)}
+                <li onClick={() => handleTabPress(3)}
                   className={`w-[7.6rem] font-bold hover:text-secondary  border-solid border-secondary cursor-pointer ${category == 3
                     ? "text-secondary font-bold border-b-[3px] border-solid border-secondary"
                     : "text-[#BCBEBD]"
@@ -148,7 +194,7 @@ function Product() {
                 >
                   Non Coffee
                 </li>
-                <li onClick={() => onChangeCategories(1)}
+                <li onClick={() => handleTabPress(1)}
                   className={`w-[7.6rem] font-bold hover:text-secondary  border-solid border-secondary cursor-pointer ${category == 1
                     ? "text-secondary font-bold border-b-[3px] border-solid border-secondary"
                     : "text-[#BCBEBD]"
@@ -156,8 +202,12 @@ function Product() {
                 >
                   Foods
                 </li>
-                <li onClick={() => onChangeCategories(4)}
-                  className="w-[7.6rem] font-bold hover:text-secondary  border-solid border-secondary cursor-pointer">
+                <li onClick={() => handleTabPress(4)}
+                  className={`w-[7.6rem] font-bold hover:text-secondary  border-solid border-secondary cursor-pointer ${category == 4
+                    ? "text-secondary font-bold border-b-[3px] border-solid border-secondary"
+                    : "text-[#BCBEBD]"
+                    }`}
+                >
                   Add-on
                 </li>
               </ul>
@@ -170,13 +220,16 @@ function Product() {
                 <div><input type='text' onChange={(event) => handleSort(event.target.value, order)} className='border px-4 py-1' /></div>
                 <div className="mb-1">
                   <select
-                    className=" cursor-pointer bg-secondary rounded-md font-medium text-white w-[120px] p-2 outline-none "
+                    className=" cursor-pointer bg-secondary rounded-md font-medium text-white w-fit p-2 outline-none "
                     data-te-select-init
                     data-te-select-filter="true"
                     defaultValue={order}
                     id="order"
                     onChange={(event) => handleSort(event.target.value, order)}
                   >
+                    <option value="" className="cursor-pointer ">
+                      No Criteria
+                    </option>
                     <option value="priciest" className="cursor-pointer ">
                       Priciest
                     </option>
@@ -194,27 +247,20 @@ function Product() {
               </div>
             </div>
             <div className="card-wrapper grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:mt-20 place-items-center mt-10 gap-x-4 gap-y-16 text-center">
-              {isLoading == true ? (
-                <div className='h-screen w-screen grid place-items-center translate-x-72 -translate-y-60 '>
-                  <div className="bg-white  inline-block h-12 w-12 animate-spin border-secondary rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
-                    <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
-                  </div>
+              {isLoading ? (<div className='h-screen w-screen grid place-items-center translate-x-72 -translate-y-60 '>
+                <div className="bg-white  inline-block h-12 w-12 animate-spin border-secondary rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+                  <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
                 </div>
-              ) : (
-                false
-              )}
-              {console.log(data)}
-              {!isLoading &&
-                data.length > 0 &&
-                data.map((product, idx) => (
-                  <CardProducts
-                    key={idx}
-                    id={product.id}
-                    image={product.image}
-                    name={product.name}
-                    price={product.price}
-                  />
-                ))}
+              </div>) : data.length > 0 &&
+              data.map((product, idx) => (
+                <CardProducts
+                  key={idx}
+                  id={product.id}
+                  image={product.image}
+                  name={product.name}
+                  price={product.price}
+                />
+              ))}
             </div>
             <section className="bottom-list w-full mt-4 ">
               <p className="text-secondary flex  items-start justify-start">
@@ -223,8 +269,7 @@ function Product() {
               <div className=" flex  items-center font-medium mb-7 w-full">
                 <div className="flex flex-row  gap-3 ml-auto w-full justify-end">
                   <button
-                    disabled={!meta.prev}
-                    onClick={() => handlePage(page - 1)}
+                    onClick={() => handlePage('prev')}
                     type="button"
                     className="bg-secondary text-white rounded-l-2xl border-r border-gray-100 py-2 hover:bg-brown hover:text-white px-4"
                   >
@@ -245,8 +290,7 @@ function Product() {
                     </div>
                   </button>
                   <button
-                    disabled={!meta.next}
-                    onClick={() => handlePage(page + 1)}
+                    onClick={() => handlePage('next')}
                     type="button"
                     className="bg-secondary text-white rounded-r-2xl py-2 border-l border-gray-200 hover:bg-brown hover:text-white px-4"
                   >
