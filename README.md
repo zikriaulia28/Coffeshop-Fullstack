@@ -1,4 +1,11 @@
-<h1 id="title" align="center">Coffe Shop Frontend</h1>
+<h1 id="title" align="center">Coffe Shop</h1>
+
+<h2>Description</h2>
+
+Coffee shop is an online booking platform that offers a variety of options.
+coffee products, non-coffee, food, and add-ons. Easy to use and
+makes it easy for users to browse menus, order, and enjoy
+Favorite food is easy.
 
 This repository contains codes for "Coffee Shop" website. You can view the [mobile app version](https://github.com/zikriaulia28/CoffeeShop-Mobile.git) and the [API](https://github.com/zikriaulia28/CoffeeShop.git)
 
@@ -11,6 +18,9 @@ You can click the demo site [here!](https://v-coffee.vercel.app/)
 <div style="display: flex; flex-wrap: wrap; gap: 0.25%;">
   <img src="/src/assets/readme/w2.png" alt="project-screenshot" width="24%">
   <img src="/src/assets/readme/w1.png" alt="project-screenshot" width="24%">
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 0.25%;">
   <img src="/src/assets/readme/w3.png" alt="project-screenshot" width="24%">
   <img src="/src/assets/readme/w4.png" alt="project-screenshot" width="24%">
 </div>
