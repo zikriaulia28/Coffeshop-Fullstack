@@ -15,14 +15,14 @@ You can click the demo site [here!](https://v-coffee.vercel.app/)
 
 <h2>Project Screenshots:</h2>
 
-<div style="display: flex; flex-wrap: wrap; gap: 0.25%;">
-  <img src="/src/assets/readme/w2.png" alt="project-screenshot" width="24%">
-  <img src="/src/assets/readme/w1.png" alt="project-screenshot" width="24%">
+<div style="display: flex; flex-wrap: wrap; gap: 1%;">
+  <img src="/src/assets/readme/w2.png" alt="project-screenshot" width="45%">
+  <img src="/src/assets/readme/w1.png" alt="project-screenshot" width="45%">
 </div>
 
 <div style="display: flex; flex-wrap: wrap; gap: 0.25%;">
-  <img src="/src/assets/readme/w3.png" alt="project-screenshot" width="24%">
-  <img src="/src/assets/readme/w4.png" alt="project-screenshot" width="24%">
+  <img src="/src/assets/readme/w3.png" alt="project-screenshot" width="45%">
+  <img src="/src/assets/readme/w4.png" alt="project-screenshot" width="45%">
 </div>
 
 <h2>🛠️ Installation Steps:</h2>
