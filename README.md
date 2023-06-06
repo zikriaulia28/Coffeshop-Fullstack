@@ -8,9 +8,12 @@ You can click the demo site [here!](https://v-coffee.vercel.app/)
 
 <h2>Project Screenshots:</h2>
 
-<img src="/src/assets/readme/w2.png" alt="project-screenshot">
-
-<img src="/src/assets/readme/w1.png" alt="project-screenshot">
+<div style="display: flex; flex-wrap: wrap; gap: 0.25%;">
+  <img src="https://imgur.com/RvJJd9Z" alt="project-screenshot" width="24%">
+  <img src="https://imgur.com/Lffhvrf" alt="project-screenshot" width="24%">
+  <img src="https://imgur.com/4dbzTsW" alt="project-screenshot" width="24%">
+  <img src="https://imgur.com/E4j74A7" alt="project-screenshot" width="24%">
+</div>
 
 <h2>🛠️ Installation Steps:</h2>
 
