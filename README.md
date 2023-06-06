@@ -28,7 +28,7 @@ git clone https://github.com/zikriaulia28/Coffeshop-Fullstack.git
 <p>2. Enter folder directory</p>
 
 ```bash
-cd coffeeshop-fe
+cd Coffeshop-fe
 ```
 
 <p>3. Install with npm</p>
