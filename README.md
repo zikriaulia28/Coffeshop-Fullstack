@@ -1,70 +1,90 @@
-<h1 id="title" align="center">Coffe Shop</h1>
+<div align="center">
+  <a href="#">
+    <img src="./public//icon-coffee.svg" alt="Logo" width="80" height="80">
+  </a>
 
-<h2>Description</h2>
+  <h2 align="center">COFFEE SHOP</h2>
 
-Coffee shop is an online booking platform that offers a variety of options.
+  <p>Coffee shop is an online booking platform that offers a variety of options.
 coffee products, non-coffee, food, and add-ons. Easy to use and
 makes it easy for users to browse menus, order, and enjoy
-Favorite food is easy.
+Favorite food is easy.</p>
+</div>
 
-<h2>💻 Built with</h2>
+## Built With
 
 Technologies used in the project:
 
-- [React](https://react.dev/)
-- [Redux](https://github.com/reduxjs/redux)
-- [TailwindCSS](https://tailwindcss.com/)
+<p align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=react,javascript,html,css,redux,tailwind,vercel" />
+  </a>
+</p>
 
-This repository contains codes for "Coffee Shop" website. You can view the [mobile app version](https://github.com/zikriaulia28/CoffeeShop-Mobile.git) and the [API](https://github.com/zikriaulia28/CoffeeShop.git)
+## How to Run the Application
 
-<h2>🛠️ Installation Steps:</h2>
+<!-- ## Installation -->
 
-<p>1. Clone this repository</p>
+### 1. Clone this repository
 
-```bash
-git clone https://github.com/zikriaulia28/Coffeshop-Fullstack.git
+Clone this repository by run the following code:
+
+```
+$ git clone <this-repo-url>
 ```
 
-<p>2. Enter folder directory</p>
+### 2. Install dependency packages
 
-```bash
-cd Coffeshop-fe
+Install dependency packages by run the following code inside project folder:
+
+```
+$ npm install
 ```
 
-<p>3. Install with npm</p>
+### 3. Configure .env file
 
-```bash
-npm install
+Configure .env file by create file named .env inside project folder and add this line to the file:
+
+```
+REACT_APP_SERVER_HOST = "https://webcoffee-api.vercel.app"
 ```
 
-<p>4. Create .env file</p>
+### 4. Run projects
 
-```env
-REACT_APP_SERVER_HOST = [your server host]
+Run this projects by run the following code:
+
+```
+$ npm start
 ```
 
-<p>5. Run with npm</p>
+## Contributing
 
-```bash
-npm run start
-```
+1. Fork the Project
+2. Create your new Branch ( `git checkout -b ...` )
+3. Commit your Changes ( `git commit -m '...'` )
+4. Push to the Branch ( `git push origin ...` )
+5. Open a Pull Request
 
-<h2>🚀 Demo</h2>
+## Demo
 
 You can click the demo site [here!](https://v-coffee.vercel.app/)
 
-<h2>Project Screenshots:</h2>
+## Related Projects
+
+This repository contains codes for "Coffee Shop" website. You can view the [mobile app version](https://github.com/zikriaulia28/CoffeeShop-Mobile.git) and the [API](https://github.com/zikriaulia28/CoffeeShop.git)
+
+## Documentation
 
 <div style="display: flex; flex-wrap: wrap; gap: 1%;">
   <img src="/src/assets/readme/w2.png" alt="project-screenshot" width="49%">
   <img src="/src/assets/readme/w1.png" alt="project-screenshot" width="49%">
 </div>
 
-<div style="display: flex; flex-wrap: wrap; gap: 0.25%;">
-  <img src="/src/assets/readme/w3.png" alt="project-screenshot" width="50%">
-  <img src="/src/assets/readme/w4.png" alt="project-screenshot" width="50%">
+<div style="display: flex; flex-wrap: wrap; gap: 1%;">
+  <img src="/src/assets/readme/w3.png" alt="project-screenshot" width="49%">
+  <img src="/src/assets/readme/w4.png" alt="project-screenshot" width="49%">
 </div>
 
-<h2>🛡️ License:</h2>
+## License
 
 This project is licensed under the ISC license
