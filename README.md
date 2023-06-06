@@ -56,8 +56,8 @@ You can click the demo site [here!](https://v-coffee.vercel.app/)
 <h2>Project Screenshots:</h2>
 
 <div style="display: flex; flex-wrap: wrap; gap: 1%;">
-  <img src="/src/assets/readme/w2.png" alt="project-screenshot" width="50%">
-  <img src="/src/assets/readme/w1.png" alt="project-screenshot" width="50%">
+  <img src="/src/assets/readme/w2.png" alt="project-screenshot" width="49%">
+  <img src="/src/assets/readme/w1.png" alt="project-screenshot" width="49%">
 </div>
 
 <div style="display: flex; flex-wrap: wrap; gap: 0.25%;">
