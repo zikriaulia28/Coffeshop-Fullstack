@@ -78,12 +78,13 @@ function Product() {
   const handlePage = async (targetPage) => {
     let nextPage = targetPage;
     if (targetPage === 'next') {
-      if (!totalPage.next) {
+      if (page == totalPage.totalPage) {
         return;
       }
       nextPage = page + 1;
-    } else if (targetPage === 'prev') {
-      if (!totalPage.prev) {
+    }
+    if (targetPage === 'prev') {
+      if (page == 1) {
         return;
       }
       nextPage = page - 1;
@@ -107,7 +108,8 @@ function Product() {
     }
   };
 
-  console.log('totalpage', page === totalPage)
+  console.log('totalpage', page)
+
   // console.log(page)
 
   const handleCategory = (info) => {
@@ -288,9 +290,10 @@ function Product() {
                     </div>
                   </button>
                   <button
+                    // disabled={page == totalPage.totalPage}
                     onClick={() => handlePage('next')}
                     type="button"
-                    className="bg-secondary text-white rounded-r-2xl py-2 border-l border-gray-200 hover:bg-brown hover:text-white px-4"
+                    className={`bg-secondary text-white rounded-r-2xl py-2 border-l border-gray-200 hover:bg-brown hover:text-white px-4`}
                   >
                     <div className="flex flex-row align-middle">
                       <span className="mr-2">Next</span>
