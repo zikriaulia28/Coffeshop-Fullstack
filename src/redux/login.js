@@ -2,12 +2,12 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../utils/https/auth';
-// import { selectAuth } from './reducers/authSlice';
 import { userAction } from './slices/auth';
 import Footer from '../../src/components/Footer';
 import Bgsignup from '../../src/assets/bg-signIn.webp';
 import Iconcoffer from '../../src/assets/icon-coffee.svg';
 import Icongoogle from '../../src/assets/google-logo.svg';
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 function Login() {
@@ -55,17 +55,25 @@ function Login() {
       setLoading(false);
       handleRedirect();
     } catch (error) {
+      console.log(error.response.data.msg)
       setLoading(false);
-      setMsg(error.response);
+      setMsg(error.response.data.msg);
       setInvalid(true);
     }
   };
 
-  const onChangeForm = (e) =>
+  const onChangeForm = (e) => {
+    const { name, value } = e.target;
     setForm((prevForm) => ({
       ...prevForm,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
+
+    if (value) {
+      setInvalid(false);
+    }
+  };
+
 
   const handleRedirect = () => {
     navigate('/home');
@@ -156,7 +164,14 @@ function Login() {
                 <Link to="/forgot" className='underline text-secondary'>Forgot password?</Link>
 
                 <span id="submitError"></span>
-                <button className="pointer py-2 bg-primary text-secondary font-bold rounded-lg cursor-pointer" onClick={loginHandler} >Login</button>
+                {loading ? <div className="flex justify-center gap-2 pointer py-2 bg-primary text-secondary font-bold  rounded-lg cursor-pointer" onClick={loginHandler} >
+                  <ClipLoader
+                    color={'#6A4029'}
+                    loading={loading}
+                    size={20}
+                  />
+                  <p>Login</p>
+                </div> : <button className="pointer py-2 bg-primary text-secondary font-bold rounded-lg cursor-pointer" onClick={loginHandler} >Login</button>}
                 <button className="cursor-pointer py-2 flex justify-center bg-bgsecondary lg:shadow-md rounded-lg">
                   <img src={Icongoogle} alt="icon-google" />
                   <p className="btn-txt text-black">Sign up with Google</p>
@@ -164,7 +179,6 @@ function Login() {
                 {/* Overlay dan modal */}
                 <div className="overlay" id="overlay"></div>
                 <div className="modal" id="modal"></div>
-                {loading && <div>Loading...</div>}
                 <div className='text-red-600'>
                   {invalid && msg}
                 </div>

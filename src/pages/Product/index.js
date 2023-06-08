@@ -4,7 +4,7 @@ import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import Promo from '../../assets/p1.webp'
 import CardProducts from './getProducts'
-// import Loading from '../../components/Loader/loader'
+import ProductSkeleton from '../../components/Skeleton/ProductSkeleton'
 
 import withNavigate from "../../utils/wrapper/withNavigate";
 import { getProduct } from "../../utils/https/product";
@@ -174,9 +174,11 @@ function Product() {
           <div className='w-full py-5'>
             <div className="menu-product ">
               <ul className='flex md:justify-between text-center'>
-                <li onClick={() => handleTabPress('')}>
-                  <p className="product-actives">Favorite Product</p>
-                  <div className="underline"></div>
+                <li onClick={() => handleTabPress('')} className={`w-[7.6rem] font-bold hover:text-secondary  border-solid border-secondary cursor-pointer ${category === ''
+                  ? "text-secondary font-bold border-b-[3px] border-solid border-secondary"
+                  : "text-[#BCBEBD]"
+                  }`}>
+                  Favorite Product
                 </li>
                 <li onClick={() => handleTabPress(2)}
                   className={`w-[7.6rem] font-bold hover:text-secondary  border-solid border-secondary cursor-pointer ${category == 2
@@ -246,21 +248,17 @@ function Product() {
                 </div>
               </div>
             </div>
-            <div className="card-wrapper grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:mt-20 place-items-center mt-10 gap-x-4 gap-y-16 text-center">
-              {isLoading ? (<div className='h-screen w-screen grid place-items-center translate-x-72 -translate-y-60 '>
-                <div className="bg-white  inline-block h-12 w-12 animate-spin border-secondary rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
-                  <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
-                </div>
-              </div>) : data.length > 0 &&
-              data.map((product, idx) => (
-                <CardProducts
-                  key={idx}
-                  id={product.id}
-                  image={product.image}
-                  name={product.name}
-                  price={product.price}
-                />
-              ))}
+            <div className="card-wrapper h-[30.5rem] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:mt-20  mt-10 gap-x-4 gap-y-16 text-center">
+              {isLoading ? (<ProductSkeleton cards={8} />) : data.length > 0 &&
+                data.map((product, idx) => (
+                  <CardProducts
+                    key={idx}
+                    id={product.id}
+                    image={product.image}
+                    name={product.name}
+                    price={product.price}
+                  />
+                ))}
             </div>
             <section className="bottom-list w-full mt-4 ">
               <p className="text-secondary flex  items-start justify-start">

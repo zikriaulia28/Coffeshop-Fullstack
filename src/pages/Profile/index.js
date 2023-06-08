@@ -6,12 +6,14 @@ import { editPasswordAsync } from '../../redux/actions/authActions';
 import { getUser } from "../../utils/https/auth";
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../redux/reducers/authSlice';
+import { userAction } from '../../redux/slices/auth';
 import { Dialog } from '@headlessui/react'
 import Loading from '../../components/Loader/loader';
+import { useNavigate } from 'react-router-dom';
 
 
 function Profile() {
+  const navigate = useNavigate();
   const controller = useMemo(() => new AbortController(), []);
   const image = useSelector((state) => state.user.image);
   const [profileData, setProfileData] = useState({});
@@ -73,8 +75,9 @@ function Profile() {
   }
 
   const logouts = () => {
-    dispatch(logout());
+    dispatch(userAction.authLogout());
     setIsLoading(false);
+    navigate('/home')
   }
 
   const handleInputChange = (e) => {
@@ -141,7 +144,7 @@ function Profile() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(editPasswordAsync(form.oldPassword, form.newPassword, token));
-    dispatch(logout());
+    dispatch(userAction.authLogout());
     setIsLoading(false)
   };
 

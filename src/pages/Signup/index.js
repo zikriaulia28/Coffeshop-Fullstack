@@ -54,7 +54,7 @@ function Signup() {
                   <div className="title-txt pointer font-bold lg:text-xl">Coffee Shop</div>
                 </div>
                 <div className="btn-signup flex items-center justify-center bg-primary px-4 rounded-xl cursor-pointer lg:px-8">
-                  <Link to="/login">Login</Link>
+                  <Link to="/">Login</Link>
                 </div>
               </div>
               <p className="title-signup text-center font-bold text-xl mt-10 lg:text-3xl">SignUp</p>
