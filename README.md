@@ -30,7 +30,7 @@ Technologies used in the project:
 Clone this repository by run the following code:
 
 ```
-$ git clone <this-repo-url>
+$ git clone https://github.com/zikriaulia28/Coffeshop-fe.git
 ```
 
 ### 2. Install dependency packages
