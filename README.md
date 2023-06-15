@@ -1,77 +1,100 @@
 <div align="center">
-  <a href="#">
-    <img src="./public//icon-coffee.svg" alt="Logo" width="80" height="80">
-  </a>
+<img src="./public//icon-coffee.svg" alt="Logo" width="80" height="80">
 
-  <h2 align="center">COFFEE SHOP</h2>
+[![Tech Stack](https://skillicons.dev/icons?i=react,javascript,html,css,redux,tailwind,vercel)](#tech-stack)
 
-  <p>Coffee shop is an online booking platform that offers a variety of options.
-coffee products, non-coffee, food, and add-ons. Easy to use and
-makes it easy for users to browse menus, order, and enjoy
-Favorite food is easy.</p>
+  <h3 align="center">COFFEE SHOP</h3>
+
+[Demo](https://v-coffee.vercel.app/) · [Related Projects](#related-projects) · [Request Feature](#report-bug)
+
 </div>
 
-## Built With
+## Table of Contents
 
-Technologies used in the project:
+- [About Project](#about-Project)
+  - [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Documentation](#documentation)
+- [Related Projects](#related-projects)
+- [License](#license)
+- [Report Bug](#report-bug)
 
-<p align="center">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=react,javascript,html,css,redux,tailwind,vercel" />
-  </a>
-</p>
+## About Project
 
-## How to Run the Application
+"Coffee shop is an online booking platform that offers a variety of options. Coffee products, non-coffee, food, and add-ons. Easy to use and makes it easy for users to browse menus, order, and enjoy
+Favorite food is easy"
 
-<!-- ## Installation -->
+### Features
 
-### 1. Clone this repository
+- Login, Register, Forgot Password, Logout
+- Profile
+- History Order
+- Products (Search, Sort, Filter)
+- Cart
+- Transactions
+- Admin Dashboard
+- Manage Order (Admin)
+- etc.
 
-Clone this repository by run the following code:
+## Tech Stack
 
-```
-$ git clone <this-repo-url>
-```
+- [React](https://react.dev/) & [React Router DOM](https://reactrouter.com/en/main)
+- [Redux](https://redux.js.org/) & [Redux Persist](https://www.npmjs.com/package/redux-persist) (Local Storage)
+- [TailwindCSS](https://tailwindcss.com/) & [DaisyUI](https://daisyui.com/)
+- [React Hot Toast](https://www.npmjs.com/package/react-hot-toast)
+- [Vercel](https://vercel.com/dashboard) for deploying demo
+- etc.
 
-### 2. Install dependency packages
+## Getting Started
 
-Install dependency packages by run the following code inside project folder:
+### Prerequisites
 
-```
-$ npm install
-```
+You need to install some software to run this project
 
-### 3. Configure .env file
+- [Node.js](https://nodejs.org/en/download) (LTS version recommended, 14 or newer)
 
-Configure .env file by create file named .env inside project folder and add this line to the file:
+### Installation
 
-```
-REACT_APP_SERVER_HOST = "https://webcoffee-api.vercel.app"
-```
+1. Clone this repository to your local
 
-### 4. Run projects
+   ```bash
+   git clone https://github.com/zikriaulia28/Coffeshop-fe.git
+   ```
 
-Run this projects by run the following code:
+2. Change current directory
 
-```
-$ npm start
-```
+   ```bash
+   cd Coffeshop-fe
+   ```
 
-## Contributing
+3. Install dependencies
 
-1. Fork the Project
-2. Create your new Branch ( `git checkout -b ...` )
-3. Commit your Changes ( `git commit -m '...'` )
-4. Push to the Branch ( `git push origin ...` )
-5. Open a Pull Request
+   If you using npm
 
-## Demo
+   ```bash
+   npm install
+   ```
 
-You can click the demo site [here!](https://v-coffee.vercel.app/)
+   If you using yarn
 
-## Related Projects
+   ```bash
+   yarn
+   ```
 
-This repository contains codes for "Coffee Shop" website. You can view the [mobile app version](https://github.com/zikriaulia28/CoffeeShop-Mobile.git) and the [API](https://github.com/zikriaulia28/CoffeeShop.git)
+4. Setup environment
+
+   ```env
+   REACT_APP_SERVER_HOST = "https://webcoffee-api.vercel.app"
+   ```
+
+5. Running app
+
+   ```bash
+   npm start
+   ```
 
 ## Documentation
 
@@ -85,6 +108,16 @@ This repository contains codes for "Coffee Shop" website. You can view the [mobi
   <img src="/src/assets/readme/w4.png" alt="project-screenshot" width="49%">
 </div>
 
+## Related Projects
+
+[mobile app version](https://github.com/zikriaulia28/CoffeeShop-Mobile.git)
+[API](https://github.com/zikriaulia28/CoffeeShop.git)
+
 ## License
 
-This project is licensed under the ISC license
+This project is licensed under the ISC License. See the [LICENSE](LICENSE) file for details.
+
+## Report Bug
+
+Any error report you can pull request
+or contact: <zikriaulia98@gmail.com>
