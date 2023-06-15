@@ -104,8 +104,8 @@ $ git clone <this-repo-url>
 
 ## Related Projects
 
-[mobile app version](https://github.com/zikriaulia28/CoffeeShop-Mobile.git)
-[API](https://github.com/zikriaulia28/CoffeeShop.git)
+- [mobile app version](https://github.com/zikriaulia28/CoffeeShop-Mobile.git)
+- [API](https://github.com/zikriaulia28/CoffeeShop.git)
 
 ## License
 
