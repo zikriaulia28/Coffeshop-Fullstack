@@ -60,15 +60,9 @@ You need to install some software to run this project
 
 1. Clone this repository to your local
 
-   ```bash
-   git clone https://github.com/zikriaulia28/Coffeshop-fe.git
-   ```
-
-2. Change current directory
-
-   ```bash
-   cd Coffeshop-fe
-   ```
+```
+$ git clone <this-repo-url>
+```
 
 3. Install dependencies
 
