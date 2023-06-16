@@ -1,9 +1,10 @@
 <div align="center">
+
 <img src="./public//icon-coffee.svg" alt="Logo" width="80" height="80">
 
 [![Tech Stack](https://skillicons.dev/icons?i=react,javascript,html,css,redux,tailwind,vercel)](#tech-stack)
 
-  <h3 align="center">COFFEE SHOP</h3>
+<h3 align="center">COFFEE SHOP</h3>
 
 [Demo](https://v-coffee.vercel.app/) · [Related Projects](#related-projects) · [Request Feature](#report-bug)
 
@@ -20,7 +21,7 @@
 - [Documentation](#documentation)
 - [Related Projects](#related-projects)
 - [License](#license)
-- [Report Bug](#report-bug)
+- [Report Bug](#report-bug) -[Contributor](#contributor)
 
 ## About Project
 
@@ -44,7 +45,6 @@ Favorite food is easy"
 - [React](https://react.dev/) & [React Router DOM](https://reactrouter.com/en/main)
 - [Redux](https://redux.js.org/) & [Redux Persist](https://www.npmjs.com/package/redux-persist) (Local Storage)
 - [TailwindCSS](https://tailwindcss.com/) & [DaisyUI](https://daisyui.com/)
-- [React Hot Toast](https://www.npmjs.com/package/react-hot-toast)
 - [Vercel](https://vercel.com/dashboard) for deploying demo
 - etc.
 
@@ -104,7 +104,7 @@ $ git clone <this-repo-url>
 
 ## Related Projects
 
-- [mobile app version](https://github.com/zikriaulia28/CoffeeShop-Mobile.git)
+- [Mobile App Version](https://github.com/zikriaulia28/CoffeeShop-Mobile.git)
 - [API](https://github.com/zikriaulia28/CoffeeShop.git)
 
 ## License
@@ -115,3 +115,16 @@ This project is licensed under the ISC License. See the [LICENSE](LICENSE) file 
 
 Any error report you can pull request
 or contact: <zikriaulia98@gmail.com>
+
+## Contributor
+
+  <table>
+    <tr>
+      <td >
+        <a href="https://github.com/redhadefinto">
+          <img width="100" src="https://avatars.githubusercontent.com/u/66767762?s=400&u=00ad08bd394a1ba0fe65d9b61cbef4245df96fb4&v=4" alt=""><br/>
+          <center><sub><b>Redha Definto </b></sub></center>
+        </a>
+        </td>
+    </tr>
+  </table>
