@@ -123,8 +123,8 @@ or contact: <zikriaulia98@gmail.com>
     <tr>
       <td >
         <a href="https://github.com/zikriaulia28">
-          <img width="100" src="https://avatars.githubusercontent.com/u/103765843?s=40&v=4" alt=""><br/>
-          <center><sub><b>Redha Definto </b></sub></center>
+          <img width="100" src="https://avatars.githubusercontent.com/u/103765843?v=4" alt=""><br/>
+          <center><sub><b>Zikri Aulia</b></sub></center>
         </a>
         </td>
     </tr>
