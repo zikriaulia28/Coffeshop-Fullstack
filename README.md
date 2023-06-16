@@ -122,8 +122,8 @@ or contact: <zikriaulia98@gmail.com>
   <table>
     <tr>
       <td >
-        <a href="https://github.com/redhadefinto">
-          <img width="100" src="https://avatars.githubusercontent.com/u/66767762?s=400&u=00ad08bd394a1ba0fe65d9b61cbef4245df96fb4&v=4" alt=""><br/>
+        <a href="https://github.com/zikriaulia28">
+          <img width="100" src="https://avatars.githubusercontent.com/u/103765843?s=40&v=4" alt=""><br/>
           <center><sub><b>Redha Definto </b></sub></center>
         </a>
         </td>
