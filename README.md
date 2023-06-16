@@ -5,7 +5,7 @@
 <br/>
 <br/>
 
-[![Tech Stack](https://skillicons.dev/icons?i=react,javascript,html,css,redux,tailwind,vercel)](#tech-stack)
+[![Tech Stack](https://skillicons.dev/icons?i=react,javascript,redux,tailwind,vercel)](#tech-stack)
 
 <h3 align="center">COFFEE SHOP</h3>
 
