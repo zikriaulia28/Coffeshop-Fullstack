@@ -21,7 +21,8 @@
 - [Documentation](#documentation)
 - [Related Projects](#related-projects)
 - [License](#license)
-- [Report Bug](#report-bug) -[Contributor](#contributor)
+- [Report Bug](#report-bug)
+- [Contributor](#contributor)
 
 ## About Project
 
