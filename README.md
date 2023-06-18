@@ -29,8 +29,8 @@
 
 ## About Project
 
-"Coffee shop is an online booking platform that offers a variety of options. Coffee products, non-coffee, food, and add-ons. Easy to use and makes it easy for users to browse menus, order, and enjoy
-Favorite food is easy"
+Coffee shop is an online booking platform that offers a variety of options. Coffee products, non-coffee, food, and add-ons. Easy to use and makes it easy for users to browse menus, order, and enjoy
+Favorite food is easy
 
 ### Features
 
