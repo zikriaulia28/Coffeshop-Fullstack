@@ -1,11 +1,11 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
 import userSlice from './auth';
-// import cartSlice from './cart';
+import counterSlice from "./counter";
 
 const reducers = combineReducers({
+  counter: counterSlice,
   user: userSlice,
-  // cart: cartSlice,
 });
 
 export default reducers;

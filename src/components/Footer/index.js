@@ -8,7 +8,7 @@ import instagram from "../../assets/ig.svg"
 class Footer extends Component {
   render() {
     return (
-      <footer className="flex flex-col gap-2 justify-between bg-bgprimary pt-16 px-5 pb-8 md:px-20 lg:px-36 lg:pt-20">
+      <footer className="flex flex-col gap-2 justify-between bg-bgprimary pt-16 px-5 pb-8 md:px-20 lg:pt-20">
         <div className="flex flex-col md:flex-row">
           <div className="flex flex-col gap-[20px] footer-desc">
             <div className="flex items-center mb-[22px] gap-[15px] footer-icon">

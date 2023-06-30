@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useEffect, useState, useMemo, Suspense } from 'react'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import Promo from '../../assets/p1.webp'
@@ -74,6 +74,7 @@ function Product() {
     }
   };
 
+  console.log('test', page < totalPage?.totalPage)
 
   const handlePage = async (targetPage) => {
     let nextPage = targetPage;
@@ -108,7 +109,7 @@ function Product() {
     }
   };
 
-  console.log('totalpage', page)
+  console.log('page', page)
 
   // console.log(page)
 
@@ -127,7 +128,7 @@ function Product() {
     <>
       <Header />
       <main>
-        <section className="container-product flex flex-col-reverse  gap-6 md:px-20 lg:px-28 lg:flex-row">
+        <section className="container-product flex flex-col-reverse  gap-6 md:px-20  lg:flex-row">
           <div className='lg:border-r lg:border-solid lg:pr-10'>
             <div className="product-txt px-5 py-5 lg:pr-5 lg:pl-0">
               <div className="title-product text-xl text-secondary font-semibold text-center mb-4">Promo for you</div>
@@ -176,7 +177,7 @@ function Product() {
           <div className='w-full py-5'>
             <div className="menu-product ">
               <ul className='flex md:justify-between text-center'>
-                <li onClick={() => handleTabPress('')} className={`w-[7.6rem] font-bold hover:text-secondary  border-solid border-secondary cursor-pointer ${category === ''
+                <li onClick={() => handleTabPress('')} className={` font-bold hover:text-secondary  border-solid border-secondary cursor-pointer ${category === ''
                   ? "text-secondary font-bold border-b-[3px] border-solid border-secondary"
                   : "text-[#BCBEBD]"
                   }`}>
@@ -251,16 +252,19 @@ function Product() {
               </div>
             </div>
             <div className="card-wrapper h-[30.5rem] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:mt-20  mt-10 gap-x-4 gap-y-16 text-center">
-              {isLoading ? (<ProductSkeleton cards={8} />) : data.length > 0 &&
-                data.map((product, idx) => (
-                  <CardProducts
-                    key={idx}
-                    id={product.id}
-                    image={product.image}
-                    name={product.name}
-                    price={product.price}
-                  />
-                ))}
+              <Suspense fallback={<ProductSkeleton cards={8} />}>
+                {data.length > 0 &&
+                  data.map((product, idx) => (
+                    <CardProducts
+                      key={idx}
+                      id={product.id}
+                      image={product.image}
+                      name={product.name}
+                      price={product.price}
+                    />
+                  ))}
+              </Suspense>
+
             </div>
             <section className="bottom-list w-full mt-4 ">
               <p className="text-secondary flex  items-start justify-start">
@@ -271,7 +275,7 @@ function Product() {
                   <button
                     onClick={() => handlePage('prev')}
                     type="button"
-                    className="bg-secondary text-white rounded-l-2xl border-r border-gray-100 py-2 hover:bg-brown hover:text-white px-4"
+                    className={`${page === 1 ? "bg-gray-400 text-black" : "bg-secondary text-white hover:text-white"} rounded-l-2xl border-r border-gray-100 py-2 hover:bg-brown px-4`}
                   >
                     <div className="flex flex-row align-middle">
                       <svg
@@ -293,7 +297,7 @@ function Product() {
                     // disabled={page == totalPage.totalPage}
                     onClick={() => handlePage('next')}
                     type="button"
-                    className={`bg-secondary text-white rounded-r-2xl py-2 border-l border-gray-200 hover:bg-brown hover:text-white px-4`}
+                    className={`${page === totalPage?.totalPage ? "bg-gray-400 text-black" : "bg-secondary text-white hover:text-white"} rounded-r-2xl border-l border-gray-100 py-2 hover:bg-brown px-4`}
                   >
                     <div className="flex flex-row align-middle">
                       <span className="mr-2">Next</span>
@@ -315,9 +319,9 @@ function Product() {
               </div>
             </section>
           </div>
-        </section>
+        </section >
 
-      </main>
+      </main >
       <Footer />
     </>
   )

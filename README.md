@@ -1,6 +1,7 @@
 <div align="center">
-
+ <a href="#">
 <img src="./public//icon-coffee.svg" alt="Logo" width="80" height="80">
+</a>
 
 <br/>
 <br/>
@@ -49,7 +50,7 @@ Favorite food is easy"
 - [React](https://react.dev/) & [React Router DOM](https://reactrouter.com/en/main)
 - [Redux](https://redux.js.org/) & [Redux Persist](https://www.npmjs.com/package/redux-persist) (Local Storage)
 - [TailwindCSS](https://tailwindcss.com/) & [DaisyUI](https://daisyui.com/)
-- [Vercel](https://vercel.com/dashboard) for deploying demo
+- [Vercel](https://vercel.com/) for deploying demo
 - etc.
 
 ## Getting Started
